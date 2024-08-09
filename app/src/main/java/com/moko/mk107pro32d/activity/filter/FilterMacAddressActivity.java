@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityFilterMacMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityFilterMac107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -39,7 +39,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterMacAddressActivity extends BaseActivity<ActivityFilterMacMini0232dBinding> {
+public class FilterMacAddressActivity extends BaseActivity<ActivityFilterMac107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -62,8 +62,8 @@ public class FilterMacAddressActivity extends BaseActivity<ActivityFilterMacMini
     }
 
     @Override
-    protected ActivityFilterMacMini0232dBinding getViewBinding() {
-        return ActivityFilterMacMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityFilterMac107pro32dBinding getViewBinding() {
+        return ActivityFilterMac107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("DefaultLocale")
@@ -97,7 +97,7 @@ public class FilterMacAddressActivity extends BaseActivity<ActivityFilterMacMini
                 for (JsonElement jsonElement : macList) {
                     filterMacAddress.add(jsonElement.getAsString());
                     String macAddress = jsonElement.getAsString();
-                    View v = LayoutInflater.from(FilterMacAddressActivity.this).inflate(R.layout.item_mac_address_filter_mini02_32d, mBind.llMacAddress, false);
+                    View v = LayoutInflater.from(FilterMacAddressActivity.this).inflate(R.layout.item_mac_address_filter_107pro32d, mBind.llMacAddress, false);
                     TextView title = v.findViewById(R.id.tv_mac_address_title);
                     EditText etMacAddress = v.findViewById(R.id.et_mac_address);
                     title.setText(String.format("MAC %d", index));
@@ -161,7 +161,7 @@ public class FilterMacAddressActivity extends BaseActivity<ActivityFilterMacMini
             ToastUtils.showToast(this, "You can set up to 10 filters!");
             return;
         }
-        View v = LayoutInflater.from(this).inflate(R.layout.item_mac_address_filter_mini02_32d, mBind.llMacAddress, false);
+        View v = LayoutInflater.from(this).inflate(R.layout.item_mac_address_filter_107pro32d, mBind.llMacAddress, false);
         TextView title = v.findViewById(R.id.tv_mac_address_title);
         title.setText(String.format("MAC %d", count + 1));
         mBind.llMacAddress.addView(v);

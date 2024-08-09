@@ -114,6 +114,6 @@
         android:overScrollMode="never"
         android:visibility="gone"
         tools:itemCount="3"
-        tools:listitem="@layout/item_scan_device_mini02_32d" />
+        tools:listitem="@layout/item_scan_device_107pro32d" />
 
 </LinearLayout>

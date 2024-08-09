@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityDuplicateDataFilterMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityDuplicateDataFilter107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -33,7 +33,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DuplicateDataFilterActivity extends BaseActivity<ActivityDuplicateDataFilterMini0232dBinding> {
+public class DuplicateDataFilterActivity extends BaseActivity<ActivityDuplicateDataFilter107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -68,8 +68,8 @@ public class DuplicateDataFilterActivity extends BaseActivity<ActivityDuplicateD
     }
 
     @Override
-    protected ActivityDuplicateDataFilterMini0232dBinding getViewBinding() {
-        return ActivityDuplicateDataFilterMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityDuplicateDataFilter107pro32dBinding getViewBinding() {
+        return ActivityDuplicateDataFilter107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

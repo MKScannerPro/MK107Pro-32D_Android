@@ -10,7 +10,7 @@ import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityNtpSettingsMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityNtpSettings107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.utils.ToastUtils;
 import com.moko.support.mk107pro32d.MokoSupport;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NtpSettingsActivity extends BaseActivity<ActivityNtpSettingsMini0232dBinding> {
+public class NtpSettingsActivity extends BaseActivity<ActivityNtpSettings107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     private ArrayList<String> mTimeZones;
     private int mSelected;
@@ -143,8 +143,8 @@ public class NtpSettingsActivity extends BaseActivity<ActivityNtpSettingsMini023
     }
 
     @Override
-    protected ActivityNtpSettingsMini0232dBinding getViewBinding() {
-        return ActivityNtpSettingsMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityNtpSettings107pro32dBinding getViewBinding() {
+        return ActivityNtpSettings107pro32dBinding.inflate(getLayoutInflater());
     }
 
     public void onSelectTimeZone(View view) {

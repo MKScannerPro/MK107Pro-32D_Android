@@ -17,9 +17,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
-import com.moko.mk107pro32d.activity.MainActivityMiNi0232D;
+import com.moko.mk107pro32d.activity.MainActivity107Pro32D;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityModifySettingsMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityModifySettings107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
@@ -39,7 +39,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class ModifySettingsActivity extends BaseActivity<ActivityModifySettingsMini0232dBinding> {
+public class ModifySettingsActivity extends BaseActivity<ActivityModifySettings107pro32dBinding> {
     public static String TAG = ModifySettingsActivity.class.getSimpleName();
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
@@ -64,8 +64,8 @@ public class ModifySettingsActivity extends BaseActivity<ActivityModifySettingsM
     }
 
     @Override
-    protected ActivityModifySettingsMini0232dBinding getViewBinding() {
-        return ActivityModifySettingsMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityModifySettings107pro32dBinding getViewBinding() {
+        return ActivityModifySettings107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -136,9 +136,9 @@ public class ModifySettingsActivity extends BaseActivity<ActivityModifySettingsM
                 mBind.tvName.postDelayed(() -> {
                     dismissLoadingProgressDialog();
                     mHandler.removeMessages(0);
-                    ToastUtils.showToast(ModifySettingsActivity.this, "Set up succeed");
+                    ToastUtils.showToast(this, "Set up succeed");
                     // 跳转首页，刷新数据
-                    Intent intent = new Intent(ModifySettingsActivity.this, MainActivityMiNi0232D.class);
+                    Intent intent = new Intent(this, MainActivity107Pro32D.class);
                     intent.putExtra(AppConstants.EXTRA_KEY_FROM_ACTIVITY, TAG);
                     intent.putExtra(AppConstants.EXTRA_KEY_MAC, mMokoDevice.mac);
                     startActivity(intent);

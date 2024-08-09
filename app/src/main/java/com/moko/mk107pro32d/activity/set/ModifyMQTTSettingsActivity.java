@@ -22,10 +22,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
-import com.moko.mk107pro32d.activity.MainActivityMiNi0232D;
+import com.moko.mk107pro32d.activity.MainActivity107Pro32D;
 import com.moko.mk107pro32d.adapter.MQTTFragmentAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityMqttDeviceModifyMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityMqttDeviceModify107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -61,7 +61,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceModifyMini0232dBinding> implements RadioGroup.OnCheckedChangeListener {
+public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceModify107pro32dBinding> implements RadioGroup.OnCheckedChangeListener {
     public static String TAG = ModifyMQTTSettingsActivity.class.getSimpleName();
     private final String FILTER_ASCII = "[ -~]*";
     private GeneralDeviceFragment generalFragment;
@@ -113,7 +113,7 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
         });
         mBind.vpMqtt.setOffscreenPageLimit(4);
         mBind.rgMqtt.setOnCheckedChangeListener(this);
-        expertFilePath = MainActivityMiNi0232D.PATH_LOGCAT + File.separator + "export" + File.separator + "Settings for Device.xlsx";
+        expertFilePath = MainActivity107Pro32D.PATH_LOGCAT + File.separator + "export" + File.separator + "Settings for Device.xlsx";
         mMokoDevice = (MokoDevice) getIntent().getSerializableExtra(AppConstants.EXTRA_KEY_DEVICE);
         String mqttConfigAppStr = SPUtiles.getStringValue(this, AppConstants.SP_KEY_MQTT_CONFIG_APP, "");
         appMqttConfig = new Gson().fromJson(mqttConfigAppStr, MQTTConfig.class);
@@ -128,8 +128,8 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
     }
 
     @Override
-    protected ActivityMqttDeviceModifyMini0232dBinding getViewBinding() {
-        return ActivityMqttDeviceModifyMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityMqttDeviceModify107pro32dBinding getViewBinding() {
+        return ActivityMqttDeviceModify107pro32dBinding.inflate(getLayoutInflater());
     }
 
     private void createFragment() {

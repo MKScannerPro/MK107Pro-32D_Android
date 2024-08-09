@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class BleDeviceAdapter extends BaseQuickAdapter<BleDevice, BaseViewHolder> {
     public BleDeviceAdapter() {
-        super(R.layout.item_ble_device_mini02_32d);
+        super(R.layout.item_ble_device_107pro32d);
     }
 
     @Override

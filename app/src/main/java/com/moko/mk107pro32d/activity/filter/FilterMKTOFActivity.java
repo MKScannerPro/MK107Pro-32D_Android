@@ -19,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityFilterMktofMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityFilterMktof107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -40,7 +40,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterMKTOFActivity extends BaseActivity<ActivityFilterMktofMini0232dBinding> {
+public class FilterMKTOFActivity extends BaseActivity<ActivityFilterMktof107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -63,8 +63,8 @@ public class FilterMKTOFActivity extends BaseActivity<ActivityFilterMktofMini023
     }
 
     @Override
-    protected ActivityFilterMktofMini0232dBinding getViewBinding() {
-        return ActivityFilterMktofMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityFilterMktof107pro32dBinding getViewBinding() {
+        return ActivityFilterMktof107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("DefaultLocale")
@@ -97,7 +97,7 @@ public class FilterMKTOFActivity extends BaseActivity<ActivityFilterMktofMini023
                 for (JsonElement jsonElement : codeList) {
                     filterCodeList.add(jsonElement.getAsString());
                     String codeId = jsonElement.getAsString();
-                    View v = LayoutInflater.from(FilterMKTOFActivity.this).inflate(R.layout.item_tof_filter_mini02_32d, mBind.llMfgCode, false);
+                    View v = LayoutInflater.from(FilterMKTOFActivity.this).inflate(R.layout.item_tof_filter_107pro32d, mBind.llMfgCode, false);
                     TextView title = v.findViewById(R.id.tv_mfg_code_title);
                     EditText etCodeId = v.findViewById(R.id.et_mfg_code);
                     title.setText(String.format("Code %d", index));
@@ -161,7 +161,7 @@ public class FilterMKTOFActivity extends BaseActivity<ActivityFilterMktofMini023
             ToastUtils.showToast(this, "You can set up to 10 filters!");
             return;
         }
-        View v = LayoutInflater.from(this).inflate(R.layout.item_tof_filter_mini02_32d, mBind.llMfgCode, false);
+        View v = LayoutInflater.from(this).inflate(R.layout.item_tof_filter_107pro32d, mBind.llMfgCode, false);
         TextView title = v.findViewById(R.id.tv_mfg_code_title);
         title.setText(String.format("Code %d", count + 1));
         mBind.llMfgCode.addView(v);

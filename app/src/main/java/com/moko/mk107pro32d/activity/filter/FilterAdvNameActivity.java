@@ -19,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityFilterAdvNameMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityFilterAdvName107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -40,7 +40,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterAdvNameActivity extends BaseActivity<ActivityFilterAdvNameMini0232dBinding> {
+public class FilterAdvNameActivity extends BaseActivity<ActivityFilterAdvName107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
@@ -69,8 +69,8 @@ public class FilterAdvNameActivity extends BaseActivity<ActivityFilterAdvNameMin
     }
 
     @Override
-    protected ActivityFilterAdvNameMini0232dBinding getViewBinding() {
-        return ActivityFilterAdvNameMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityFilterAdvName107pro32dBinding getViewBinding() {
+        return ActivityFilterAdvName107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("DefaultLocale")

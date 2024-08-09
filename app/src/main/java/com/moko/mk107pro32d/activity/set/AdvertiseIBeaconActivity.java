@@ -18,7 +18,7 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityAdvertiseIbeaconMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityAdvertiseIbeacon107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -48,7 +48,7 @@ import java.util.List;
  * @date: 2023/7/3 11:24
  * @des:
  */
-public class AdvertiseIBeaconActivity extends BaseActivity<ActivityAdvertiseIbeaconMini0232dBinding> {
+public class AdvertiseIBeaconActivity extends BaseActivity<ActivityAdvertiseIbeacon107pro32dBinding> {
     private final String[] txPowerArr = {"-24dBm", "-21dBm", "-18dBm", "-15dBm", "-12dBm", "-9dBm", "-6dBm", "-3dBm", "0dBm", "3dBm", "6dBm",
             "9dBm", "12dBm", "15dBm", "18dBm", "21dBm"};
     private int mSelected;
@@ -67,8 +67,8 @@ public class AdvertiseIBeaconActivity extends BaseActivity<ActivityAdvertiseIbea
     private int advInterval;
 
     @Override
-    protected ActivityAdvertiseIbeaconMini0232dBinding getViewBinding() {
-        return ActivityAdvertiseIbeaconMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityAdvertiseIbeacon107pro32dBinding getViewBinding() {
+        return ActivityAdvertiseIbeacon107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Override

@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.moko.mk107pro32d.databinding.FragmentLwtMini0232dBinding;
+import com.moko.mk107pro32d.databinding.FragmentLwt107pro32dBinding;
 import com.moko.mk107pro32d.utils.ToastUtils;
 
 public class LWTFragment extends Fragment {
     private final String FILTER_ASCII = "[ -~]*";
-    private FragmentLwtMini0232dBinding mBind;
+    private FragmentLwt107pro32dBinding mBind;
     private boolean lwtEnable;
     private boolean lwtRetain;
     private int qos;
@@ -31,7 +31,7 @@ public class LWTFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBind = FragmentLwtMini0232dBinding.inflate(inflater, container, false);
+        mBind = FragmentLwt107pro32dBinding.inflate(inflater, container, false);
         InputFilter filter = (source, start, end, dest, dstart, dend) -> {
             if (!(source + "").matches(FILTER_ASCII)) {
                 return "";

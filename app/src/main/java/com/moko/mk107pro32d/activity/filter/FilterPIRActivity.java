@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityFilterPirMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityFilterPir107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -34,7 +34,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FilterPIRActivity extends BaseActivity<ActivityFilterPirMini0232dBinding> {
+public class FilterPIRActivity extends BaseActivity<ActivityFilterPir107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -64,8 +64,8 @@ public class FilterPIRActivity extends BaseActivity<ActivityFilterPirMini0232dBi
     }
 
     @Override
-    protected ActivityFilterPirMini0232dBinding getViewBinding() {
-        return ActivityFilterPirMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityFilterPir107pro32dBinding getViewBinding() {
+        return ActivityFilterPir107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -22,7 +22,7 @@ import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.adapter.DeviceInfoAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityScannerMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityScanner107pro32dBinding;
 import com.moko.mk107pro32d.dialog.PasswordDialog;
 import com.moko.mk107pro32d.utils.SPUtiles;
 import com.moko.mk107pro32d.utils.ToastUtils;
@@ -46,7 +46,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import no.nordicsemi.android.support.v18.scanner.ScanRecord;
 import no.nordicsemi.android.support.v18.scanner.ScanResult;
 
-public class DeviceScannerActivity extends BaseActivity<ActivityScannerMini0232dBinding> implements MokoScanDeviceCallback, BaseQuickAdapter.OnItemClickListener {
+public class DeviceScannerActivity extends BaseActivity<ActivityScanner107pro32dBinding> implements MokoScanDeviceCallback, BaseQuickAdapter.OnItemClickListener {
     private Animation animation = null;
     private DeviceInfoAdapter mAdapter;
     private ConcurrentHashMap<String, DeviceInfo> mDeviceMap;
@@ -83,8 +83,8 @@ public class DeviceScannerActivity extends BaseActivity<ActivityScannerMini0232d
     }
 
     @Override
-    protected ActivityScannerMini0232dBinding getViewBinding() {
-        return ActivityScannerMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityScanner107pro32dBinding getViewBinding() {
+        return ActivityScanner107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Override
@@ -114,7 +114,7 @@ public class DeviceScannerActivity extends BaseActivity<ActivityScannerMini0232d
         if (data == null || data.length != 1) return;
         deviceInfo.deviceType = data[0] & 0xFF;
         // 过滤MKGW-mini 02-32D
-        if (deviceInfo.deviceType != 0x70) return;
+        if (deviceInfo.deviceType != 0x60) return;
         mDeviceMap.put(deviceInfo.mac, deviceInfo);
     }
 
@@ -242,8 +242,6 @@ public class DeviceScannerActivity extends BaseActivity<ActivityScannerMini0232d
         if (MokoConstants.ACTION_ORDER_TIMEOUT.equals(action)) {
             OrderTaskResponse response = event.getResponse();
             OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
-            int responseType = response.responseType;
-            byte[] value = response.responseValue;
             if (orderCHAR == OrderCHAR.CHAR_PASSWORD) {
                 MokoSupport.getInstance().disConnectBle();
             }
@@ -251,7 +249,6 @@ public class DeviceScannerActivity extends BaseActivity<ActivityScannerMini0232d
         if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
             OrderTaskResponse response = event.getResponse();
             OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
-            int responseType = response.responseType;
             byte[] value = response.responseValue;
             if (orderCHAR == OrderCHAR.CHAR_PASSWORD) {
                 dismissLoadingMessageDialog();
@@ -268,13 +265,11 @@ public class DeviceScannerActivity extends BaseActivity<ActivityScannerMini0232d
                             mSavedPassword = mPassword;
                             SPUtiles.setStringValue(this, AppConstants.SP_KEY_PASSWORD, mSavedPassword);
                             XLog.i("Success");
-
                             // 跳转配置页面
                             Intent intent = new Intent(this, DeviceConfigActivity.class);
                             intent.putExtra(AppConstants.EXTRA_KEY_SELECTED_DEVICE_TYPE, mSelectedDeviceType);
                             startLauncher.launch(intent);
-                        }
-                        if (0 == result) {
+                        } else {
                             isPasswordError = true;
                             ToastUtils.showToast(this, "Password Error");
                             MokoSupport.getInstance().disConnectBle();

@@ -6,7 +6,7 @@ import com.moko.mk107pro32d.R;
 
 public class ScanDeviceAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     public ScanDeviceAdapter() {
-        super(R.layout.item_scan_device_mini02_32d);
+        super(R.layout.item_scan_device_107pro32d);
     }
 
     @Override

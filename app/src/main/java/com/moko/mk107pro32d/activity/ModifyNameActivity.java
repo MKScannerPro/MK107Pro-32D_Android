@@ -58,7 +58,7 @@ public class ModifyNameActivity extends BaseActivity<ActivityModifyDeviceNameMin
         device.name = name;
         DBTools.getInstance(getApplicationContext()).updateDevice(device);
         // 跳转首页，刷新数据
-        Intent intent = new Intent(this, MainActivityMiNi0232D.class);
+        Intent intent = new Intent(this, MainActivity107Pro32D.class);
         intent.putExtra(AppConstants.EXTRA_KEY_FROM_ACTIVITY, TAG);
         intent.putExtra(AppConstants.EXTRA_KEY_MAC, device.mac);
         startActivity(intent);

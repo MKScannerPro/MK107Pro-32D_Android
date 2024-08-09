@@ -14,7 +14,7 @@ import android.provider.MediaStore;
 
 import com.elvishew.xlog.XLog;
 import com.moko.mk107pro32d.BuildConfig;
-import com.moko.mk107pro32d.activity.MainActivityMiNi0232D;
+import com.moko.mk107pro32d.activity.MainActivity107Pro32D;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +48,7 @@ public class IOUtils {
         boolean exist = isSdCardExist();
         String sdpath = "";
         if (exist) {
-            sdpath = MainActivityMiNi0232D.PATH_LOGCAT;
+            sdpath = MainActivity107Pro32D.PATH_LOGCAT;
         }
         return sdpath;
 
@@ -64,7 +64,7 @@ public class IOUtils {
         String filepath = "";
         File file;
         // 优先保存到SD卡中
-        file = new File(MainActivityMiNi0232D.PATH_LOGCAT, CRASH_FILE);
+        file = new File(MainActivity107Pro32D.PATH_LOGCAT, CRASH_FILE);
         try {
             if (file.exists()) {
                 filepath = file.getAbsolutePath();
@@ -85,7 +85,7 @@ public class IOUtils {
      */
     public static String getFilePath(String fileName) {
         String filepath = "";
-        File file = new File(MainActivityMiNi0232D.PATH_LOGCAT, fileName);
+        File file = new File(MainActivity107Pro32D.PATH_LOGCAT, fileName);
         try {
             if (file.exists()) {
                 filepath = file.getAbsolutePath();
@@ -226,7 +226,7 @@ public class IOUtils {
         values.put(MediaStore.DownloadColumns.DISPLAY_NAME, file.getName());
         values.put(MediaStore.DownloadColumns.TITLE, file.getName());
         values.put(MediaStore.DownloadColumns.MIME_TYPE, "*/*");
-        values.put(MediaStore.DownloadColumns.RELATIVE_PATH, BuildConfig.IS_LIBRARY ? "Download/MKScannerPro" : "Download/MINI0232D");
+        values.put(MediaStore.DownloadColumns.RELATIVE_PATH, BuildConfig.IS_LIBRARY ? "Download/MKScannerPro" : "Download/MK107Pro32D");
         Uri external = MediaStore.Downloads.EXTERNAL_CONTENT_URI;
         Uri uri = null;
         ContentResolver cr = context.getContentResolver();

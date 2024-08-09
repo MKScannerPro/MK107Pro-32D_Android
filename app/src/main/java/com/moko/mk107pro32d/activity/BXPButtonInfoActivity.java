@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityBxpButtonInfoMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityBxpButtonInfo107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.dialog.LedBuzzerControlDialog;
@@ -40,7 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class BXPButtonInfoActivity extends BaseActivity<ActivityBxpButtonInfoMini0232dBinding> {
+public class BXPButtonInfoActivity extends BaseActivity<ActivityBxpButtonInfo107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -90,8 +90,8 @@ public class BXPButtonInfoActivity extends BaseActivity<ActivityBxpButtonInfoMin
     }
 
     @Override
-    protected ActivityBxpButtonInfoMini0232dBinding getViewBinding() {
-        return ActivityBxpButtonInfoMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityBxpButtonInfo107pro32dBinding getViewBinding() {
+        return ActivityBxpButtonInfo107pro32dBinding.inflate(getLayoutInflater());
     }
 
     private void showControl(int index) {

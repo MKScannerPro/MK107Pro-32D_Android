@@ -23,7 +23,7 @@ import com.moko.mk107pro32d.activity.filter.FilterMacAddressActivity;
 import com.moko.mk107pro32d.activity.filter.FilterRawDataSwitchActivity;
 import com.moko.mk107pro32d.activity.filter.UploadDataOptionActivity;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityScannerUploadOptionMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityScannerUploadOption107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -44,7 +44,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ScannerUploadOptionActivity extends BaseActivity<ActivityScannerUploadOptionMini0232dBinding> implements SeekBar.OnSeekBarChangeListener {
+public class ScannerUploadOptionActivity extends BaseActivity<ActivityScannerUploadOption107pro32dBinding> implements SeekBar.OnSeekBarChangeListener {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -74,8 +74,8 @@ public class ScannerUploadOptionActivity extends BaseActivity<ActivityScannerUpl
     }
 
     @Override
-    protected ActivityScannerUploadOptionMini0232dBinding getViewBinding() {
-        return ActivityScannerUploadOptionMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityScannerUploadOption107pro32dBinding getViewBinding() {
+        return ActivityScannerUploadOption107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("DefaultLocale")

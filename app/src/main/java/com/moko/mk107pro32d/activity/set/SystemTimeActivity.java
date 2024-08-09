@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivitySystemTimeMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivitySystemTime107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -39,7 +39,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class SystemTimeActivity extends BaseActivity<ActivitySystemTimeMini0232dBinding> {
+public class SystemTimeActivity extends BaseActivity<ActivitySystemTime107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -86,8 +86,8 @@ public class SystemTimeActivity extends BaseActivity<ActivitySystemTimeMini0232d
     }
 
     @Override
-    protected ActivitySystemTimeMini0232dBinding getViewBinding() {
-        return ActivitySystemTimeMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivitySystemTime107pro32dBinding getViewBinding() {
+        return ActivitySystemTime107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

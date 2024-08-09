@@ -10,19 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.moko.mk107pro32d.activity.set.ModifyMQTTSettingsActivity;
-import com.moko.mk107pro32d.databinding.FragmentSslDeviceUrlMini0232dBinding;
+import com.moko.mk107pro32d.databinding.FragmentSslDeviceUrl107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SSLDeviceUrlFragment extends Fragment {
-    private FragmentSslDeviceUrlMini0232dBinding mBind;
+    private FragmentSslDeviceUrl107pro32dBinding mBind;
     private ModifyMQTTSettingsActivity activity;
     private int mConnectMode = 0;
     private String caUrl;
     private String clientKeyUrl;
     private String clientCertUrl;
-    private ArrayList<String> values;
+    private final String[] values = {"CA signed server certificate", "CA certificate", "Self signed certificates"};
     private int selected;
 
     public SSLDeviceUrlFragment() {
@@ -34,7 +35,7 @@ public class SSLDeviceUrlFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBind = FragmentSslDeviceUrlMini0232dBinding.inflate(inflater, container, false);
+        mBind = FragmentSslDeviceUrl107pro32dBinding.inflate(inflater, container, false);
         activity = (ModifyMQTTSettingsActivity) getActivity();
         mBind.clCertificate.setVisibility(mConnectMode > 0 ? View.VISIBLE : View.GONE);
         mBind.cbSsl.setChecked(mConnectMode > 0);
@@ -46,10 +47,6 @@ public class SSLDeviceUrlFragment extends Fragment {
             }
             mBind.clCertificate.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         });
-        values = new ArrayList<>();
-        values.add("CA signed server certificate");
-        values.add("CA certificate");
-        values.add("Self signed certificates");
         mBind.etCaUrl.setFilters(new InputFilter[]{new InputFilter.LengthFilter(256), activity.filter});
         mBind.etClientKeyUrl.setFilters(new InputFilter[]{new InputFilter.LengthFilter(256), activity.filter});
         mBind.etClientCertUrl.setFilters(new InputFilter[]{new InputFilter.LengthFilter(256), activity.filter});
@@ -58,7 +55,7 @@ public class SSLDeviceUrlFragment extends Fragment {
             mBind.etCaUrl.setText(caUrl);
             mBind.etClientKeyUrl.setText(clientKeyUrl);
             mBind.etClientCertUrl.setText(clientCertUrl);
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
         }
         if (selected == 0) {
             mBind.llCa.setVisibility(View.GONE);
@@ -85,7 +82,7 @@ public class SSLDeviceUrlFragment extends Fragment {
             mBind.etCaUrl.setText(caUrl);
             mBind.etClientKeyUrl.setText(clientKeyUrl);
             mBind.etClientCertUrl.setText(clientCertUrl);
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
         }
         mBind.cbSsl.setChecked(mConnectMode > 0);
         if (selected == 0) {
@@ -123,10 +120,10 @@ public class SSLDeviceUrlFragment extends Fragment {
 
     public void selectCertificate() {
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(values, selected);
+        dialog.setDatas((ArrayList<String>) Arrays.asList(values), selected);
         dialog.setListener(value -> {
             selected = value;
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
             if (selected == 0) {
                 mConnectMode = 1;
                 mBind.llCa.setVisibility(View.GONE);

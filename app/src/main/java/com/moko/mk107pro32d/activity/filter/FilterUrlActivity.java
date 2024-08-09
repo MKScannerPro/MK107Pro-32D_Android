@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityFilterUrlMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityFilterUrl107pro32dBinding;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.SPUtiles;
@@ -31,7 +31,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class FilterUrlActivity extends BaseActivity<ActivityFilterUrlMini0232dBinding> {
+public class FilterUrlActivity extends BaseActivity<ActivityFilterUrl107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
@@ -61,8 +61,8 @@ public class FilterUrlActivity extends BaseActivity<ActivityFilterUrlMini0232dBi
     }
 
     @Override
-    protected ActivityFilterUrlMini0232dBinding getViewBinding() {
-        return ActivityFilterUrlMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityFilterUrl107pro32dBinding getViewBinding() {
+        return ActivityFilterUrl107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

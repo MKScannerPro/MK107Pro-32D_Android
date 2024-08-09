@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.moko.mk107pro32d.databinding.FragmentGeneralAppMini0232dBinding;
+import com.moko.mk107pro32d.databinding.FragmentGeneralApp107pro32dBinding;
 import com.moko.mk107pro32d.utils.ToastUtils;
 
 public class GeneralFragment extends Fragment {
     private static final String TAG = GeneralFragment.class.getSimpleName();
-    private FragmentGeneralAppMini0232dBinding mBind;
+    private FragmentGeneralApp107pro32dBinding mBind;
     private boolean cleanSession;
     private int qos;
     private int keepAlive;
@@ -36,7 +36,7 @@ public class GeneralFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView: ");
-        mBind = FragmentGeneralAppMini0232dBinding.inflate(inflater, container, false);
+        mBind = FragmentGeneralApp107pro32dBinding.inflate(inflater, container, false);
         mBind.cbCleanSession.setChecked(cleanSession);
         if (qos == 0) {
             mBind.rbQos1.setChecked(true);

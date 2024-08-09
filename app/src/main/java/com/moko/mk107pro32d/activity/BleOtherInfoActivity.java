@@ -18,7 +18,7 @@ import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.adapter.BleCharacteristicsAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityOtherInfoMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityOtherInfo107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.dialog.CharWriteDialog;
@@ -46,7 +46,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class BleOtherInfoActivity extends BaseActivity<ActivityOtherInfoMini0232dBinding> implements BaseQuickAdapter.OnItemChildClickListener {
+public class BleOtherInfoActivity extends BaseActivity<ActivityOtherInfo107pro32dBinding> implements BaseQuickAdapter.OnItemChildClickListener {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -96,8 +96,8 @@ public class BleOtherInfoActivity extends BaseActivity<ActivityOtherInfoMini0232
     }
 
     @Override
-    protected ActivityOtherInfoMini0232dBinding getViewBinding() {
-        return ActivityOtherInfoMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityOtherInfo107pro32dBinding getViewBinding() {
+        return ActivityOtherInfo107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

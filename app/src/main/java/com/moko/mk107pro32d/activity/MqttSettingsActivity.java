@@ -24,7 +24,7 @@ import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.adapter.MQTTFragmentAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityMqttDeviceMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityMqttDevice107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.fragment.GeneralDeviceFragment;
@@ -55,7 +55,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MqttSettingsActivity extends BaseActivity<ActivityMqttDeviceMini0232dBinding> implements RadioGroup.OnCheckedChangeListener {
+public class MqttSettingsActivity extends BaseActivity<ActivityMqttDevice107pro32dBinding> implements RadioGroup.OnCheckedChangeListener {
     private final String FILTER_ASCII = "[ -~]*";
     private GeneralDeviceFragment generalFragment;
     private UserDeviceFragment userFragment;
@@ -104,7 +104,7 @@ public class MqttSettingsActivity extends BaseActivity<ActivityMqttDeviceMini023
         });
         mBind.vpMqtt.setOffscreenPageLimit(4);
         mBind.rgMqtt.setOnCheckedChangeListener(this);
-        expertFilePath = MainActivityMiNi0232D.PATH_LOGCAT + File.separator + "export" + File.separator + "Settings for Device.xlsx";
+        expertFilePath = MainActivity107Pro32D.PATH_LOGCAT + File.separator + "export" + File.separator + "Settings for Device.xlsx";
         showLoadingProgressDialog();
         ArrayList<OrderTask> orderTasks = new ArrayList<>(18);
         orderTasks.add(OrderTaskAssembler.getDeviceName());
@@ -129,8 +129,8 @@ public class MqttSettingsActivity extends BaseActivity<ActivityMqttDeviceMini023
     }
 
     @Override
-    protected ActivityMqttDeviceMini0232dBinding getViewBinding() {
-        return ActivityMqttDeviceMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityMqttDevice107pro32dBinding getViewBinding() {
+        return ActivityMqttDevice107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 100)

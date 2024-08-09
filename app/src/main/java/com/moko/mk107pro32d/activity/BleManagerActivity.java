@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.adapter.BleDeviceAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityBleDevicesMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityBleDevices107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.dialog.PasswordRemoteBleDialog;
 import com.moko.mk107pro32d.dialog.ScanFilterDialog;
@@ -48,7 +48,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class BleManagerActivity extends BaseActivity<ActivityBleDevicesMini0232dBinding> implements BaseQuickAdapter.OnItemChildClickListener {
+public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32dBinding> implements BaseQuickAdapter.OnItemChildClickListener {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -93,13 +93,12 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevicesMini0232d
     }
 
     @Override
-    protected ActivityBleDevicesMini0232dBinding getViewBinding() {
-        return ActivityBleDevicesMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityBleDevices107pro32dBinding getViewBinding() {
+        return ActivityBleDevices107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 100)
     public void onMQTTMessageArrivedEvent(MQTTMessageArrivedEvent event) {
-        // 更新所有设备的网络状态
         final String message = event.getMessage();
         if (TextUtils.isEmpty(message)) return;
         int msg_id;

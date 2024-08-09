@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityBeaconDfuMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityBeaconDfu107pro32dBinding;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.SPUtiles;
@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class BeaconDFUActivity extends BaseActivity<ActivityBeaconDfuMini0232dBinding> {
+public class BeaconDFUActivity extends BaseActivity<ActivityBeaconDfu107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
@@ -61,8 +61,8 @@ public class BeaconDFUActivity extends BaseActivity<ActivityBeaconDfuMini0232dBi
     }
 
     @Override
-    protected ActivityBeaconDfuMini0232dBinding getViewBinding() {
-        return ActivityBeaconDfuMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityBeaconDfu107pro32dBinding getViewBinding() {
+        return ActivityBeaconDfu107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("DefaultLocale")

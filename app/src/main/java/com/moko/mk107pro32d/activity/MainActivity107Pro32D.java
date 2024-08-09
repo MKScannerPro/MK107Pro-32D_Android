@@ -10,6 +10,10 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
@@ -23,8 +27,7 @@ import com.moko.mk107pro32d.activity.set.DeviceSettingActivity;
 import com.moko.mk107pro32d.activity.set.ModifySettingsActivity;
 import com.moko.mk107pro32d.adapter.DeviceAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityMainMini0232dBinding;
-import com.moko.mk107pro32d.databinding.ActivityMainRemote20dBinding;
+import com.moko.mk107pro32d.databinding.ActivityMain107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
@@ -59,11 +62,7 @@ import java.io.Writer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-public class MainActivityMiNi0232D extends BaseActivity<ActivityMainMini0232dBinding> implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener {
+public class MainActivity107Pro32D extends BaseActivity<ActivityMain107pro32dBinding> implements BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener {
     private ArrayList<MokoDevice> devices;
     private DeviceAdapter adapter;
     public Handler mHandler;
@@ -76,13 +75,13 @@ public class MainActivityMiNi0232D extends BaseActivity<ActivityMainMini0232dBin
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             // 优先保存到SD卡中
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                PATH_LOGCAT = getExternalFilesDir(null).getAbsolutePath() + File.separator + (BuildConfig.IS_LIBRARY ? "MKScannerPro" : "MKRemoteGW20D");
+                PATH_LOGCAT = getExternalFilesDir(null).getAbsolutePath() + File.separator + (BuildConfig.IS_LIBRARY ? "MKScannerPro" : "MK107Pro32D");
             } else {
-                PATH_LOGCAT = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + (BuildConfig.IS_LIBRARY ? "MKScannerPro" : "MKRemoteGW20D");
+                PATH_LOGCAT = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + (BuildConfig.IS_LIBRARY ? "MKScannerPro" : "MK107Pro32D");
             }
         } else {
             // 如果SD卡不存在，就保存到本应用的目录下
-            PATH_LOGCAT = getFilesDir().getAbsolutePath() + File.separator + (BuildConfig.IS_LIBRARY ? "MKScannerPro" : "MKRemoteGW20D");
+            PATH_LOGCAT = getFilesDir().getAbsolutePath() + File.separator + (BuildConfig.IS_LIBRARY ? "MKScannerPro" : "MK107Pro32D");
         }
         if (!BuildConfig.IS_LIBRARY) {
             // 记录机型
@@ -143,8 +142,8 @@ public class MainActivityMiNi0232D extends BaseActivity<ActivityMainMini0232dBin
     }
 
     @Override
-    protected ActivityMainMini0232dBinding getViewBinding() {
-        return ActivityMainMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityMain107pro32dBinding getViewBinding() {
+        return ActivityMain107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -335,7 +334,7 @@ public class MainActivityMiNi0232D extends BaseActivity<ActivityMainMini0232dBin
         dialog.setMessage("Please confirm again whether to \n remove the device");
         dialog.setOnAlertConfirmListener(() -> {
             if (!MQTTSupport.getInstance().isConnected()) {
-                ToastUtils.showToast(MainActivityMiNi0232D.this, R.string.network_error);
+                ToastUtils.showToast(MainActivity107Pro32D.this, R.string.network_error);
                 return;
             }
             showLoadingProgressDialog();

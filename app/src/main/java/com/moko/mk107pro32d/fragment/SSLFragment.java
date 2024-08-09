@@ -2,7 +2,6 @@ package com.moko.mk107pro32d.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.moko.mk107pro32d.R;
-import com.moko.mk107pro32d.databinding.FragmentSslAppMini0232dBinding;
+import com.moko.mk107pro32d.databinding.FragmentSslApp107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.utils.FileUtils;
 import com.moko.mk107pro32d.utils.ToastUtils;
@@ -25,8 +24,7 @@ public class SSLFragment extends Fragment {
     public static final int REQUEST_CODE_SELECT_CA = 0x10;
     public static final int REQUEST_CODE_SELECT_CLIENT_KEY = 0x11;
     public static final int REQUEST_CODE_SELECT_CLIENT_CERT = 0x12;
-    private static final String TAG = SSLFragment.class.getSimpleName();
-    private FragmentSslAppMini0232dBinding mBind;
+    private FragmentSslApp107pro32dBinding mBind;
     private int connectMode;
     private String caPath;
     private String clientKeyPath;
@@ -40,17 +38,9 @@ public class SSLFragment extends Fragment {
     public static SSLFragment newInstance() {
         return new SSLFragment();
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate: ");
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView: ");
-        mBind = FragmentSslAppMini0232dBinding.inflate(inflater, container, false);
+        mBind = FragmentSslApp107pro32dBinding.inflate(inflater, container, false);
         mBind.clCertificate.setVisibility(connectMode > 0 ? View.VISIBLE : View.GONE);
         mBind.cbSsl.setChecked(connectMode > 0);
         mBind.cbSsl.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -86,24 +76,6 @@ public class SSLFragment extends Fragment {
             mBind.llClientCert.setVisibility(View.VISIBLE);
         }
         return mBind.getRoot();
-    }
-
-    @Override
-    public void onResume() {
-        Log.i(TAG, "onResume: ");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.i(TAG, "onPause: ");
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.i(TAG, "onDestroy: ");
-        super.onDestroy();
     }
 
     public void setConnectMode(int connectMode) {

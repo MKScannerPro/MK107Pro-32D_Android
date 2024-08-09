@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat;
 public class DeviceAdapter extends BaseQuickAdapter<MokoDevice, BaseViewHolder> {
 
     public DeviceAdapter() {
-        super(R.layout.device_item_mini02_32d);
+        super(R.layout.device_item_107pro32d);
     }
 
     @Override

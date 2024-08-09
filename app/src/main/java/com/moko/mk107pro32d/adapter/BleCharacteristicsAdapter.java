@@ -12,8 +12,8 @@ import java.util.List;
 public class BleCharacteristicsAdapter extends BaseMultiItemQuickAdapter<BleOtherChar, BaseViewHolder> {
     public BleCharacteristicsAdapter(List<BleOtherChar> data) {
         super(data);
-        addItemType(0, R.layout.item_service_mini02_32d);
-        addItemType(1, R.layout.item_characteristics_mini02_32d);
+        addItemType(0, R.layout.item_service_107pro32d);
+        addItemType(1, R.layout.item_characteristics_107pro32d);
     }
 
     @Override

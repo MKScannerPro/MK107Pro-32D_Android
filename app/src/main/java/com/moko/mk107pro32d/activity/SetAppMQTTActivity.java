@@ -1,6 +1,6 @@
 package com.moko.mk107pro32d.activity;
 
-import android.content.ActivityNotFoundException;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.InputFilter;
@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.IdRes;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -18,7 +20,7 @@ import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.adapter.MQTTFragmentAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityMqttAppMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityMqttApp107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.fragment.GeneralFragment;
@@ -52,7 +54,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class SetAppMQTTActivity extends BaseActivity<ActivityMqttAppMini0232dBinding> implements RadioGroup.OnCheckedChangeListener {
+public class SetAppMQTTActivity extends BaseActivity<ActivityMqttApp107pro32dBinding> implements RadioGroup.OnCheckedChangeListener {
     private final String FILTER_ASCII = "[ -~]*";
     private GeneralFragment generalFragment;
     private UserFragment userFragment;
@@ -105,12 +107,12 @@ public class SetAppMQTTActivity extends BaseActivity<ActivityMqttAppMini0232dBin
         });
         mBind.vpMqtt.setOffscreenPageLimit(3);
         mBind.rgMqtt.setOnCheckedChangeListener(this);
-        expertFilePath = MainActivityMiNi0232D.PATH_LOGCAT + File.separator + "export" + File.separator + "Settings for APP.xlsx";
+        expertFilePath = MainActivity107Pro32D.PATH_LOGCAT + File.separator + "export" + File.separator + "Settings for APP.xlsx";
     }
 
     @Override
-    protected ActivityMqttAppMini0232dBinding getViewBinding() {
-        return ActivityMqttAppMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityMqttApp107pro32dBinding getViewBinding() {
+        return ActivityMqttApp107pro32dBinding.inflate(getLayoutInflater());
     }
 
     private void createFragment() {
@@ -210,9 +212,7 @@ public class SetAppMQTTActivity extends BaseActivity<ActivityMqttAppMini0232dBin
                 final Writer result = new StringWriter();
                 final PrintWriter printWriter = new PrintWriter(result);
                 e.printStackTrace(printWriter);
-                StringBuffer errorReport = new StringBuffer();
-                errorReport.append(result.toString());
-                XLog.e(errorReport.toString());
+                XLog.e(result.toString());
             }
         }, 2000);
     }
@@ -265,29 +265,26 @@ public class SetAppMQTTActivity extends BaseActivity<ActivityMqttAppMini0232dBin
     }
 
     public void selectCertificate(View view) {
-        if (isWindowLocked())
-            return;
+        if (isWindowLocked()) return;
         sslFragment.selectCertificate();
     }
 
     public void selectCAFile(View view) {
-        if (isWindowLocked())
-            return;
+        if (isWindowLocked()) return;
         sslFragment.selectCAFile();
     }
 
     public void selectKeyFile(View view) {
-        if (isWindowLocked())
-            return;
+        if (isWindowLocked()) return;
         sslFragment.selectKeyFile();
     }
 
     public void selectCertFile(View view) {
-        if (isWindowLocked())
-            return;
+        if (isWindowLocked()) return;
         sslFragment.selectCertFile();
     }
 
+    @SuppressLint("DefaultLocale")
     public void onExportSettings(View view) {
         if (isWindowLocked()) return;
         if (isParaError()) return;
@@ -404,7 +401,7 @@ public class SetAppMQTTActivity extends BaseActivity<ActivityMqttAppMini0232dBin
                     OutputStream outputStream = getContentResolver().openOutputStream(uri);
                     xssfWorkbook.write(outputStream);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    XLog.e(e);
                     isFileError = true;
                 }
                 runOnUiThread(() -> {
@@ -420,120 +417,106 @@ public class SetAppMQTTActivity extends BaseActivity<ActivityMqttAppMini0232dBin
                 });
             }).start();
         } catch (Exception e) {
-            e.printStackTrace();
+            XLog.e(e);
             ToastUtils.showToast(this, "Export error!");
         }
     }
 
     public void onImportSettings(View view) {
         if (isWindowLocked()) return;
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        try {
-            startActivityForResult(Intent.createChooser(intent, "select file first!"), AppConstants.REQUEST_CODE_OPEN_APP_SETTINGS_FILE);
-        } catch (ActivityNotFoundException ex) {
-            ToastUtils.showToast(this, "install file manager app");
-        }
+        launcher.launch("*/*");
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppConstants.REQUEST_CODE_OPEN_APP_SETTINGS_FILE) {
-            if (resultCode == RESULT_OK) {
-                //得到uri，后面就是将uri转化成file的过程。
-                Uri uri = data.getData();
-                String paramFilePath = FileUtils.getPath(this, uri);
-                if (TextUtils.isEmpty(paramFilePath)) {
-                    return;
-                }
-                if (!paramFilePath.endsWith(".xlsx")) {
-                    ToastUtils.showToast(this, "Please select the correct file!");
-                    return;
-                }
-                final File paramFile = new File(paramFilePath);
-                if (paramFile.exists()) {
-                    showLoadingProgressDialog();
-                    new Thread(() -> {
-                        try {
-                            Workbook workbook = WorkbookFactory.create(paramFile);
-                            Sheet sheet = workbook.getSheetAt(0);
-                            int rows = sheet.getPhysicalNumberOfRows();
-                            int columns = sheet.getRow(0).getPhysicalNumberOfCells();
-                            // 从第二行开始
-                            if (rows < 13 || columns < 3) {
-                                runOnUiThread(() -> {
-                                    dismissLoadingProgressDialog();
-                                    ToastUtils.showToast(SetAppMQTTActivity.this, "Please select the correct file!");
-                                });
-                                return;
-                            }
-                            Cell hostCell = sheet.getRow(1).getCell(1);
-                            if (hostCell != null)
-                                mqttConfig.host = hostCell.getStringCellValue().replaceAll("value:", "");
-                            Cell postCell = sheet.getRow(2).getCell(1);
-                            if (postCell != null)
-                                mqttConfig.port = postCell.getStringCellValue().replaceAll("value:", "");
-                            Cell clientCell = sheet.getRow(3).getCell(1);
-                            if (clientCell != null)
-                                mqttConfig.clientId = clientCell.getStringCellValue().replaceAll("value:", "");
-                            Cell topicSubscribeCell = sheet.getRow(4).getCell(1);
-                            if (topicSubscribeCell != null) {
-                                mqttConfig.topicSubscribe = topicSubscribeCell.getStringCellValue().replaceAll("value:", "");
-                            }
-                            Cell topicPublishCell = sheet.getRow(5).getCell(1);
-                            if (topicPublishCell != null) {
-                                mqttConfig.topicPublish = topicPublishCell.getStringCellValue().replaceAll("value:", "");
-                            }
-                            Cell cleanSessionCell = sheet.getRow(6).getCell(1);
-                            if (cleanSessionCell != null)
-                                mqttConfig.cleanSession = "1".equals(cleanSessionCell.getStringCellValue().replaceAll("value:", ""));
-                            Cell qosCell = sheet.getRow(7).getCell(1);
-                            if (qosCell != null)
-                                mqttConfig.qos = Integer.parseInt(qosCell.getStringCellValue().replaceAll("value:", ""));
-                            Cell keepAliveCell = sheet.getRow(8).getCell(1);
-                            if (keepAliveCell != null)
-                                mqttConfig.keepAlive = Integer.parseInt(keepAliveCell.getStringCellValue().replaceAll("value:", ""));
-                            Cell usernameCell = sheet.getRow(9).getCell(1);
-                            if (usernameCell != null) {
-                                mqttConfig.username = usernameCell.getStringCellValue().replaceAll("value:", "");
-                            }
-                            Cell passwordCell = sheet.getRow(10).getCell(1);
-                            if (passwordCell != null) {
-                                mqttConfig.password = passwordCell.getStringCellValue().replaceAll("value:", "");
-                            }
-                            Cell connectModeCell = sheet.getRow(11).getCell(1);
-                            if (connectModeCell != null) {
-                                // 0/1
-                                mqttConfig.connectMode = Integer.parseInt(connectModeCell.getStringCellValue().replaceAll("value:", ""));
-                                if (mqttConfig.connectMode > 0) {
-                                    Cell cell = sheet.getRow(12).getCell(1);
-                                    if (cell != null)
-                                        // 1/2/3
-                                        mqttConfig.connectMode = Integer.parseInt(cell.getStringCellValue().replaceAll("value:", ""));
-                                }
-                            }
-                            runOnUiThread(() -> {
-                                dismissLoadingProgressDialog();
-                                if (isFileError) {
-                                    ToastUtils.showToast(SetAppMQTTActivity.this, "Import failed!");
-                                    return;
-                                }
-                                ToastUtils.showToast(SetAppMQTTActivity.this, "Import success!");
-                                initData();
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            isFileError = true;
-                        }
-                    }).start();
-                } else {
-                    ToastUtils.showToast(this, "File is not exists!");
-                }
-            }
+    private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+        if (null == result) return;
+        String paramFilePath = FileUtils.getPath(this, result);
+        if (TextUtils.isEmpty(paramFilePath)) {
+            return;
         }
-    }
+        if (!paramFilePath.endsWith(".xlsx")) {
+            ToastUtils.showToast(this, "Please select the correct file!");
+            return;
+        }
+        final File paramFile = new File(paramFilePath);
+        if (paramFile.exists()) {
+            showLoadingProgressDialog();
+            new Thread(() -> {
+                try {
+                    Workbook workbook = WorkbookFactory.create(paramFile);
+                    Sheet sheet = workbook.getSheetAt(0);
+                    int rows = sheet.getPhysicalNumberOfRows();
+                    int columns = sheet.getRow(0).getPhysicalNumberOfCells();
+                    // 从第二行开始
+                    if (rows < 13 || columns < 3) {
+                        runOnUiThread(() -> {
+                            dismissLoadingProgressDialog();
+                            ToastUtils.showToast(SetAppMQTTActivity.this, "Please select the correct file!");
+                        });
+                        return;
+                    }
+                    Cell hostCell = sheet.getRow(1).getCell(1);
+                    if (hostCell != null)
+                        mqttConfig.host = hostCell.getStringCellValue().replaceAll("value:", "");
+                    Cell postCell = sheet.getRow(2).getCell(1);
+                    if (postCell != null)
+                        mqttConfig.port = postCell.getStringCellValue().replaceAll("value:", "");
+                    Cell clientCell = sheet.getRow(3).getCell(1);
+                    if (clientCell != null)
+                        mqttConfig.clientId = clientCell.getStringCellValue().replaceAll("value:", "");
+                    Cell topicSubscribeCell = sheet.getRow(4).getCell(1);
+                    if (topicSubscribeCell != null) {
+                        mqttConfig.topicSubscribe = topicSubscribeCell.getStringCellValue().replaceAll("value:", "");
+                    }
+                    Cell topicPublishCell = sheet.getRow(5).getCell(1);
+                    if (topicPublishCell != null) {
+                        mqttConfig.topicPublish = topicPublishCell.getStringCellValue().replaceAll("value:", "");
+                    }
+                    Cell cleanSessionCell = sheet.getRow(6).getCell(1);
+                    if (cleanSessionCell != null)
+                        mqttConfig.cleanSession = "1".equals(cleanSessionCell.getStringCellValue().replaceAll("value:", ""));
+                    Cell qosCell = sheet.getRow(7).getCell(1);
+                    if (qosCell != null)
+                        mqttConfig.qos = Integer.parseInt(qosCell.getStringCellValue().replaceAll("value:", ""));
+                    Cell keepAliveCell = sheet.getRow(8).getCell(1);
+                    if (keepAliveCell != null)
+                        mqttConfig.keepAlive = Integer.parseInt(keepAliveCell.getStringCellValue().replaceAll("value:", ""));
+                    Cell usernameCell = sheet.getRow(9).getCell(1);
+                    if (usernameCell != null) {
+                        mqttConfig.username = usernameCell.getStringCellValue().replaceAll("value:", "");
+                    }
+                    Cell passwordCell = sheet.getRow(10).getCell(1);
+                    if (passwordCell != null) {
+                        mqttConfig.password = passwordCell.getStringCellValue().replaceAll("value:", "");
+                    }
+                    Cell connectModeCell = sheet.getRow(11).getCell(1);
+                    if (connectModeCell != null) {
+                        // 0/1
+                        mqttConfig.connectMode = Integer.parseInt(connectModeCell.getStringCellValue().replaceAll("value:", ""));
+                        if (mqttConfig.connectMode > 0) {
+                            Cell cell = sheet.getRow(12).getCell(1);
+                            if (cell != null)
+                                // 1/2/3
+                                mqttConfig.connectMode = Integer.parseInt(cell.getStringCellValue().replaceAll("value:", ""));
+                        }
+                    }
+                    runOnUiThread(() -> {
+                        dismissLoadingProgressDialog();
+                        if (isFileError) {
+                            ToastUtils.showToast(SetAppMQTTActivity.this, "Import failed!");
+                            return;
+                        }
+                        ToastUtils.showToast(SetAppMQTTActivity.this, "Import success!");
+                        initData();
+                    });
+                } catch (Exception e) {
+                    XLog.e(e);
+                    isFileError = true;
+                }
+            }).start();
+        } else {
+            ToastUtils.showToast(this, "File is not exists!");
+        }
+    });
 
     public void onClearConfig(View view) {
         if (isWindowLocked()) return;

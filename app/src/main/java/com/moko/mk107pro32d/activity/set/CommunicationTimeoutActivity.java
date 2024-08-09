@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityCommunicationTimeoutMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityCommunicationTimeout107pro32dBinding;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.SPUtiles;
@@ -31,7 +31,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class CommunicationTimeoutActivity extends BaseActivity<ActivityCommunicationTimeoutMini0232dBinding> {
+public class CommunicationTimeoutActivity extends BaseActivity<ActivityCommunicationTimeout107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -53,8 +53,8 @@ public class CommunicationTimeoutActivity extends BaseActivity<ActivityCommunica
     }
 
     @Override
-    protected ActivityCommunicationTimeoutMini0232dBinding getViewBinding() {
-        return ActivityCommunicationTimeoutMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityCommunicationTimeout107pro32dBinding getViewBinding() {
+        return ActivityCommunicationTimeout107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

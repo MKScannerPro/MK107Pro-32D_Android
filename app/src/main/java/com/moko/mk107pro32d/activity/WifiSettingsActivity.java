@@ -14,7 +14,7 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityWifiSettingsMimi0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityWifiSettings107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.utils.FileUtils;
 import com.moko.mk107pro32d.utils.ToastUtils;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class WifiSettingsActivity extends BaseActivity<ActivityWifiSettingsMimi0232dBinding> {
+public class WifiSettingsActivity extends BaseActivity<ActivityWifiSettings107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     private final String[] mSecurityValues = {"Personal", "Enterprise"};
     private int mSecuritySelected;
@@ -76,8 +76,8 @@ public class WifiSettingsActivity extends BaseActivity<ActivityWifiSettingsMimi0
     }
 
     @Override
-    protected ActivityWifiSettingsMimi0232dBinding getViewBinding() {
-        return ActivityWifiSettingsMimi0232dBinding.inflate(getLayoutInflater());
+    protected ActivityWifiSettings107pro32dBinding getViewBinding() {
+        return ActivityWifiSettings107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 100)

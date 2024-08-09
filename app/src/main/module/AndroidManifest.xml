@@ -35,7 +35,7 @@
 
     <application android:allowBackup="true">
         <activity
-            android:name="com.moko.mk107pro32d.activity.MainActivityMiNi0232D"
+            android:name="com.moko.mk107pro32d.activity.MainActivity107Pro32D"
             android:configChanges="orientation|keyboard|keyboardHidden|locale|layoutDirection"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

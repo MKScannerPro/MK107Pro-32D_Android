@@ -19,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityFilterBxpTagMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityFilterBxpTag107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -40,7 +40,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterBXPTagActivity extends BaseActivity<ActivityFilterBxpTagMini0232dBinding> {
+public class FilterBXPTagActivity extends BaseActivity<ActivityFilterBxpTag107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -63,8 +63,8 @@ public class FilterBXPTagActivity extends BaseActivity<ActivityFilterBxpTagMini0
     }
 
     @Override
-    protected ActivityFilterBxpTagMini0232dBinding getViewBinding() {
-        return ActivityFilterBxpTagMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityFilterBxpTag107pro32dBinding getViewBinding() {
+        return ActivityFilterBxpTag107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("DefaultLocale")
@@ -100,7 +100,7 @@ public class FilterBXPTagActivity extends BaseActivity<ActivityFilterBxpTagMini0
                 for (JsonElement jsonElement : tagList) {
                     filterTagList.add(jsonElement.getAsString());
                     String tagId = jsonElement.getAsString();
-                    View v = LayoutInflater.from(this).inflate(R.layout.item_mac_address_filter_mini02_32d, mBind.llTagId, false);
+                    View v = LayoutInflater.from(this).inflate(R.layout.item_mac_address_filter_107pro32d, mBind.llTagId, false);
                     TextView title = v.findViewById(R.id.tv_mac_address_title);
                     EditText etTadId = v.findViewById(R.id.et_mac_address);
                     title.setText(String.format("ID %d", index));
@@ -165,7 +165,7 @@ public class FilterBXPTagActivity extends BaseActivity<ActivityFilterBxpTagMini0
             ToastUtils.showToast(this, "You can set up to 10 filters!");
             return;
         }
-        View v = LayoutInflater.from(this).inflate(R.layout.item_mac_address_filter_mini02_32d, mBind.llTagId, false);
+        View v = LayoutInflater.from(this).inflate(R.layout.item_mac_address_filter_107pro32d, mBind.llTagId, false);
         TextView title = v.findViewById(R.id.tv_mac_address_title);
         title.setText(String.format("ID %d", count + 1));
         mBind.llTagId.addView(v);

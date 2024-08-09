@@ -9,7 +9,7 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityDeviceInfoMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityDeviceInfo107pro32dBinding;
 import com.moko.support.mk107pro32d.MokoSupport;
 import com.moko.support.mk107pro32d.OrderTaskAssembler;
 import com.moko.support.mk107pro32d.entity.OrderCHAR;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DeviceInformationActivity extends BaseActivity<ActivityDeviceInfoMini0232dBinding> {
+public class DeviceInformationActivity extends BaseActivity<ActivityDeviceInfo107pro32dBinding> {
 
     @Override
     protected void onCreate() {
@@ -41,8 +41,8 @@ public class DeviceInformationActivity extends BaseActivity<ActivityDeviceInfoMi
     }
 
     @Override
-    protected ActivityDeviceInfoMini0232dBinding getViewBinding() {
-        return ActivityDeviceInfoMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityDeviceInfo107pro32dBinding getViewBinding() {
+        return ActivityDeviceInfo107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 100)
@@ -112,7 +112,6 @@ public class DeviceInformationActivity extends BaseActivity<ActivityDeviceInfoMi
                                         byte[] bleMacBytes = Arrays.copyOfRange(value, 4, 4 + length);
                                         mBind.tvBtMac.setText(MokoUtils.bytesToHexString(bleMacBytes).toUpperCase());
                                         break;
-
                                 }
                             }
                         }

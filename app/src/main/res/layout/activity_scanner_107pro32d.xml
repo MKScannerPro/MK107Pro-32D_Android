@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_ffffff"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey_f2f2f2"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -13,41 +14,36 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:onClick="onBack"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:layout_height="wrap_content"
+            android:onClick="back"
+            android:padding="16dp"
             android:src="@drawable/back" />
 
         <TextView
-            android:id="@+id/tv_device_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text=""
+            android:text="@string/add_device_title"
             android:textColor="@color/white_ffffff"
             android:textSize="17sp" />
 
-        <TextView
+        <ImageView
+            android:id="@+id/iv_refresh"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="onDisconnect"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="Disconnect"
-            android:textColor="@color/white_ffffff"
-            android:textSize="15sp" />
+            android:src="@drawable/refresh" />
     </RelativeLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_characteristics"
+        android:id="@+id/rv_devices"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.0"
-        android:overScrollMode="never"
-        tools:listitem="@layout/item_characteristics_mini02_32d" />
+        tools:listitem="@layout/item_devices_107pro32d"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        android:overScrollMode="never" />
 </LinearLayout>

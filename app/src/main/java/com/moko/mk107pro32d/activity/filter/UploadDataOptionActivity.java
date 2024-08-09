@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityUploadDataOptionMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityUploadDataOption107pro32dBinding;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.SPUtiles;
@@ -30,11 +30,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class UploadDataOptionActivity extends BaseActivity<ActivityUploadDataOptionMini0232dBinding> {
+public class UploadDataOptionActivity extends BaseActivity<ActivityUploadDataOption107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
-
     public Handler mHandler;
 
     @Override
@@ -53,8 +52,8 @@ public class UploadDataOptionActivity extends BaseActivity<ActivityUploadDataOpt
     }
 
     @Override
-    protected ActivityUploadDataOptionMini0232dBinding getViewBinding() {
-        return ActivityUploadDataOptionMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityUploadDataOption107pro32dBinding getViewBinding() {
+        return ActivityUploadDataOption107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

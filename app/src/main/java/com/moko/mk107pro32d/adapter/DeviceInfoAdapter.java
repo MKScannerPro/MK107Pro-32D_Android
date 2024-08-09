@@ -7,7 +7,7 @@ import com.moko.support.mk107pro32d.entity.DeviceInfo;
 
 public class DeviceInfoAdapter extends BaseQuickAdapter<DeviceInfo, BaseViewHolder> {
     public DeviceInfoAdapter() {
-        super(R.layout.item_devices_mini02_32d);
+        super(R.layout.item_devices_107pro32d);
     }
 
     @Override

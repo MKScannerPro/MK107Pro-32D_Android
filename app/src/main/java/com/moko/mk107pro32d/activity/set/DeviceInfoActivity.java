@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityDeviceInfoMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityDeviceInfo107pro32dBinding;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.SPUtiles;
@@ -28,7 +28,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class DeviceInfoActivity extends BaseActivity<ActivityDeviceInfoMini0232dBinding> {
+public class DeviceInfoActivity extends BaseActivity<ActivityDeviceInfo107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -50,8 +50,8 @@ public class DeviceInfoActivity extends BaseActivity<ActivityDeviceInfoMini0232d
     }
 
     @Override
-    protected ActivityDeviceInfoMini0232dBinding getViewBinding() {
-        return ActivityDeviceInfoMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityDeviceInfo107pro32dBinding getViewBinding() {
+        return ActivityDeviceInfo107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

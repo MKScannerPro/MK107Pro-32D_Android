@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityOtaMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityOta107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -35,7 +35,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class OTAActivity extends BaseActivity<ActivityOtaMini0232dBinding> {
+public class OTAActivity extends BaseActivity<ActivityOta107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
@@ -62,8 +62,8 @@ public class OTAActivity extends BaseActivity<ActivityOtaMini0232dBinding> {
     }
 
     @Override
-    protected ActivityOtaMini0232dBinding getViewBinding() {
-        return ActivityOtaMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityOta107pro32dBinding getViewBinding() {
+        return ActivityOta107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

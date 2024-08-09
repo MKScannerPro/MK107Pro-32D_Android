@@ -24,7 +24,7 @@ import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.activity.set.AdvertiseIBeaconActivity;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityDeviceConfigMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityDeviceConfig107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.dialog.CustomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
@@ -47,7 +47,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 
-public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfigMini0232dBinding> {
+public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfig107pro32dBinding> {
     private MQTTConfig mAppMqttConfig;
     private MQTTConfig mDeviceMqttConfig;
     private Handler mHandler;
@@ -68,8 +68,8 @@ public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfigMini0
     }
 
     @Override
-    protected ActivityDeviceConfigMini0232dBinding getViewBinding() {
-        return ActivityDeviceConfigMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityDeviceConfig107pro32dBinding getViewBinding() {
+        return ActivityDeviceConfig107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 50)
@@ -106,7 +106,6 @@ public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfigMini0
                         if (configKeyEnum == null) {
                             return;
                         }
-                        int length = value[3] & 0xFF;
                         if (flag == 0x01) {
                             // write
                             int result = value[4] & 0xFF;

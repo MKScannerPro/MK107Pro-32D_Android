@@ -13,25 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.moko.mk107pro32d.R;
-import com.moko.mk107pro32d.databinding.FragmentSslDeviceMini0232dBinding;
+import com.moko.mk107pro32d.databinding.FragmentSslDevice107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.utils.FileUtils;
 import com.moko.mk107pro32d.utils.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SSLDeviceFragment extends Fragment {
     public static final int REQUEST_CODE_SELECT_CA = 0x10;
     public static final int REQUEST_CODE_SELECT_CLIENT_KEY = 0x11;
     public static final int REQUEST_CODE_SELECT_CLIENT_CERT = 0x12;
     private static final String TAG = SSLDeviceFragment.class.getSimpleName();
-    private FragmentSslDeviceMini0232dBinding mBind;
+    private FragmentSslDevice107pro32dBinding mBind;
     private int mConnectMode;
     private String caPath;
     private String clientKeyPath;
     private String clientCertPath;
-    private ArrayList<String> values;
+    private final String[] values = {"CA signed server certificate", "CA certificate file", "Self signed certificates"};
     private int selected;
     private int requestCode;
 
@@ -45,7 +46,7 @@ public class SSLDeviceFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView: ");
-        mBind = FragmentSslDeviceMini0232dBinding.inflate(inflater, container, false);
+        mBind = FragmentSslDevice107pro32dBinding.inflate(inflater, container, false);
         mBind.clCertificate.setVisibility(mConnectMode > 0 ? View.VISIBLE : View.GONE);
         mBind.cbSsl.setChecked(mConnectMode > 0);
         mBind.cbSsl.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -56,16 +57,12 @@ public class SSLDeviceFragment extends Fragment {
             }
             mBind.clCertificate.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         });
-        values = new ArrayList<>();
-        values.add("CA signed server certificate");
-        values.add("CA certificate file");
-        values.add("Self signed certificates");
         if (mConnectMode > 0) {
             selected = mConnectMode - 1;
             mBind.tvCaFile.setText(caPath);
             mBind.tvClientKeyFile.setText(clientKeyPath);
             mBind.tvClientCertFile.setText(clientCertPath);
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
         }
         if (selected == 0) {
             mBind.llCa.setVisibility(View.GONE);
@@ -92,7 +89,7 @@ public class SSLDeviceFragment extends Fragment {
             mBind.tvCaFile.setText(caPath);
             mBind.tvClientKeyFile.setText(clientKeyPath);
             mBind.tvClientCertFile.setText(clientCertPath);
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
         }
         mBind.cbSsl.setChecked(mConnectMode > 0);
         if (selected == 0) {
@@ -130,10 +127,10 @@ public class SSLDeviceFragment extends Fragment {
 
     public void selectCertificate() {
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(values, selected);
+        dialog.setDatas((ArrayList<String>) Arrays.asList(values), selected);
         dialog.setListener(value -> {
             selected = value;
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
             if (selected == 0) {
                 mConnectMode = 1;
                 mBind.llCa.setVisibility(View.GONE);

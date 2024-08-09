@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityModifyWifiSettingsMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityModifyWifiSettings107pro32dBinding;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -36,7 +36,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ModifyWifiSettingsActivity extends BaseActivity<ActivityModifyWifiSettingsMini0232dBinding> {
+public class ModifyWifiSettingsActivity extends BaseActivity<ActivityModifyWifiSettings107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
@@ -78,8 +78,8 @@ public class ModifyWifiSettingsActivity extends BaseActivity<ActivityModifyWifiS
     }
 
     @Override
-    protected ActivityModifyWifiSettingsMini0232dBinding getViewBinding() {
-        return ActivityModifyWifiSettingsMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityModifyWifiSettings107pro32dBinding getViewBinding() {
+        return ActivityModifyWifiSettings107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

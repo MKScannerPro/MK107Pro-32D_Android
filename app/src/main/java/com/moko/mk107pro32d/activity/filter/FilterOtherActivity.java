@@ -19,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityFilterOtherMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityFilterOther107pro32dBinding;
 import com.moko.mk107pro32d.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.dialog.BottomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
@@ -41,7 +41,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterOtherActivity extends BaseActivity<ActivityFilterOtherMini0232dBinding> {
+public class FilterOtherActivity extends BaseActivity<ActivityFilterOther107pro32dBinding> {
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
@@ -66,8 +66,8 @@ public class FilterOtherActivity extends BaseActivity<ActivityFilterOtherMini023
     }
 
     @Override
-    protected ActivityFilterOtherMini0232dBinding getViewBinding() {
-        return ActivityFilterOtherMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityFilterOther107pro32dBinding getViewBinding() {
+        return ActivityFilterOther107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @SuppressLint("SetTextI18n")
@@ -117,7 +117,7 @@ public class FilterOtherActivity extends BaseActivity<ActivityFilterOtherMini023
                 int index = 0;
                 for (JsonElement jsonElement : ruleList) {
                     filterOther.add(jsonElement.getAsJsonObject());
-                    View v = LayoutInflater.from(this).inflate(R.layout.item_other_filter_mini02_32d, mBind.llFilterCondition, false);
+                    View v = LayoutInflater.from(this).inflate(R.layout.item_other_filter_107pro32d, mBind.llFilterCondition, false);
                     TextView tvCondition = v.findViewById(R.id.tv_condition);
                     EditText etDataType = v.findViewById(R.id.et_data_type);
                     EditText etMin = v.findViewById(R.id.et_min);
@@ -202,7 +202,7 @@ public class FilterOtherActivity extends BaseActivity<ActivityFilterOtherMini023
             ToastUtils.showToast(this, "You can set up to 3 filters!");
             return;
         }
-        View v = LayoutInflater.from(this).inflate(R.layout.item_other_filter_mini02_32d, mBind.llFilterCondition, false);
+        View v = LayoutInflater.from(this).inflate(R.layout.item_other_filter_107pro32d, mBind.llFilterCondition, false);
         TextView tvCondition = v.findViewById(R.id.tv_condition);
         if (count == 0) {
             tvCondition.setText("Condition A");

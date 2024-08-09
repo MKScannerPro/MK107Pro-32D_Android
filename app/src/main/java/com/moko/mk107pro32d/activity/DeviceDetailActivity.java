@@ -18,7 +18,7 @@ import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.activity.set.DeviceSettingActivity;
 import com.moko.mk107pro32d.adapter.ScanDeviceAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityDetailMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityDetail107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
@@ -44,7 +44,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeviceDetailActivity extends BaseActivity<ActivityDetailMini0232dBinding> {
+public class DeviceDetailActivity extends BaseActivity<ActivityDetail107pro32dBinding> {
     public static final String TAG = DeviceDetailActivity.class.getSimpleName();
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
@@ -80,8 +80,8 @@ public class DeviceDetailActivity extends BaseActivity<ActivityDetailMini0232dBi
     }
 
     @Override
-    protected ActivityDetailMini0232dBinding getViewBinding() {
-        return ActivityDetailMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityDetail107pro32dBinding getViewBinding() {
+        return ActivityDetail107pro32dBinding.inflate(getLayoutInflater());
     }
 
     private void changeView() {

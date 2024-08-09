@@ -13,7 +13,7 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityScannerFilterMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityScannerFilter107pro32dBinding;
 import com.moko.mk107pro32d.utils.ToastUtils;
 import com.moko.support.mk107pro32d.MokoSupport;
 import com.moko.support.mk107pro32d.OrderTaskAssembler;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ScannerFilterActivity extends BaseActivity<ActivityScannerFilterMini0232dBinding> implements SeekBar.OnSeekBarChangeListener {
+public class ScannerFilterActivity extends BaseActivity<ActivityScannerFilter107pro32dBinding> implements SeekBar.OnSeekBarChangeListener {
     private final String FILTER_ASCII = "[ -~]*";
     private boolean mSavedParamsError;
     private ArrayList<String> filterMacAddress;
@@ -55,8 +55,8 @@ public class ScannerFilterActivity extends BaseActivity<ActivityScannerFilterMin
     }
 
     @Override
-    protected ActivityScannerFilterMini0232dBinding getViewBinding() {
-        return ActivityScannerFilterMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityScannerFilter107pro32dBinding getViewBinding() {
+        return ActivityScannerFilter107pro32dBinding.inflate(getLayoutInflater());
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 100)
