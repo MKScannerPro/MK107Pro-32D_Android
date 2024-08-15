@@ -41,7 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DeviceDetailActivity extends BaseActivity<ActivityDetail107pro32dBinding> {
@@ -51,7 +51,7 @@ public class DeviceDetailActivity extends BaseActivity<ActivityDetail107pro32dBi
     private String mAppTopic;
     private boolean mScanSwitch;
     private ScanDeviceAdapter mAdapter;
-    private ArrayList<String> mScanDevices;
+    private final List<String> mScanDevices = new LinkedList<>();
     private Handler mHandler;
     private BXPButtonInfo mConnectedBXPButtonInfo;
 
@@ -64,7 +64,6 @@ public class DeviceDetailActivity extends BaseActivity<ActivityDetail107pro32dBi
         mHandler = new Handler(Looper.getMainLooper());
 
         mBind.tvDeviceName.setText(mMokoDevice.name);
-        mScanDevices = new ArrayList<>();
         mAdapter = new ScanDeviceAdapter();
         mAdapter.openLoadAnimation();
         mAdapter.replaceData(mScanDevices);
@@ -128,8 +127,7 @@ public class DeviceDetailActivity extends BaseActivity<ActivityDetail107pro32dBi
             Type type = new TypeToken<MsgNotify<List<JsonObject>>>() {
             }.getType();
             MsgNotify<List<JsonObject>> result = new Gson().fromJson(message, type);
-            if (!mMokoDevice.mac.equalsIgnoreCase(result.device_info.mac))
-                return;
+            if (!mMokoDevice.mac.equalsIgnoreCase(result.device_info.mac)) return;
             for (JsonObject jsonObject : result.data) {
                 mScanDevices.add(0, jsonObject.toString());
             }
