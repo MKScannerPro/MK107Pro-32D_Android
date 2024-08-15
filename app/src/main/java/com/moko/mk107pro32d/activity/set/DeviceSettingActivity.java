@@ -73,6 +73,7 @@ public class DeviceSettingActivity extends BaseActivity<ActivityDeviceSetting107
         showLoadingProgressDialog();
         getOutputSwitch();
         mBind.imgOutputSwitch.setOnClickListener(v -> setOutSwitch(MQTTConstants.CONFIG_MSG_ID_OUTPUT_SWITCH));
+        mBind.imgOutControl.setOnClickListener(v -> setOutSwitch(MQTTConstants.CONFIG_MSG_ID_OUT_CONTROL));
     }
 
     @Override

@@ -121,7 +121,7 @@ public class CustomDialog extends Dialog {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme  
             final CustomDialog dialog = new CustomDialog(context, R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_normal_layout20d, null);
+            View layout = inflater.inflate(R.layout.dialog_normal_layout_107pro32d, null);
             dialog.addContentView(layout, new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             // set the dialog title
@@ -137,12 +137,8 @@ public class CustomDialog extends Dialog {
                         .setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
                     layout.findViewById(R.id.positiveButton)
-                            .setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    positiveButtonClickListener.onClick(dialog,
-                                            DialogInterface.BUTTON_POSITIVE);
-                                }
-                            });
+                            .setOnClickListener(v -> positiveButtonClickListener.onClick(dialog,
+                                    DialogInterface.BUTTON_POSITIVE));
                 }
             } else {
                 // if no confirm button just set the visibility to GONE  
@@ -155,12 +151,8 @@ public class CustomDialog extends Dialog {
                         .setText(negativeButtonText);
                 if (negativeButtonClickListener != null) {
                     layout.findViewById(R.id.negativeButton)
-                            .setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    negativeButtonClickListener.onClick(dialog,
-                                            DialogInterface.BUTTON_NEGATIVE);
-                                }
-                            });
+                            .setOnClickListener(v -> negativeButtonClickListener.onClick(dialog,
+                                    DialogInterface.BUTTON_NEGATIVE));
                 }
             } else {
                 // if no confirm button just set the visibility to GONE  

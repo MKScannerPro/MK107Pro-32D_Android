@@ -26,10 +26,6 @@
             android:text="@string/device_information"
             android:textColor="@color/white_ffffff"
             android:textSize="17sp" />
-
-        <View
-            style="@style/divider_line"
-            android:background="@color/grey_999999" />
     </RelativeLayout>
 
     <LinearLayout

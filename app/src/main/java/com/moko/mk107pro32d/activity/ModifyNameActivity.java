@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
-import com.moko.mk107pro32d.databinding.ActivityModifyDeviceNameMini0232dBinding;
+import com.moko.mk107pro32d.databinding.ActivityModifyDeviceName107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.ToastUtils;
@@ -20,7 +20,7 @@ import com.moko.support.mk107pro32d.event.MQTTConnectionCompleteEvent;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class ModifyNameActivity extends BaseActivity<ActivityModifyDeviceNameMini0232dBinding> {
+public class ModifyNameActivity extends BaseActivity<ActivityModifyDeviceName107pro32dBinding> {
     private final String FILTER_ASCII = "[ -~]*";
     public static String TAG = ModifyNameActivity.class.getSimpleName();
     private MokoDevice device;
@@ -45,8 +45,8 @@ public class ModifyNameActivity extends BaseActivity<ActivityModifyDeviceNameMin
     }
 
     @Override
-    protected ActivityModifyDeviceNameMini0232dBinding getViewBinding() {
-        return ActivityModifyDeviceNameMini0232dBinding.inflate(getLayoutInflater());
+    protected ActivityModifyDeviceName107pro32dBinding getViewBinding() {
+        return ActivityModifyDeviceName107pro32dBinding.inflate(getLayoutInflater());
     }
 
     public void modifyDone(View view) {

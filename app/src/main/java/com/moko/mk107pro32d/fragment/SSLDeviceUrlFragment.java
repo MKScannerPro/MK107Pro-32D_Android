@@ -120,7 +120,7 @@ public class SSLDeviceUrlFragment extends Fragment {
 
     public void selectCertificate() {
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas((ArrayList<String>) Arrays.asList(values), selected);
+        dialog.setDatas((new ArrayList<>(Arrays.asList(values))), selected);
         dialog.setListener(value -> {
             selected = value;
             mBind.tvCertification.setText(values[selected]);

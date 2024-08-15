@@ -629,7 +629,7 @@ public class ParamsTask extends OrderTask {
         }
         remainPack = packetCount - 1;
         packetIndex = 0;
-        delayTime = DEFAULT_DELAY_TIME + 500 * packetCount;
+        delayTime = DEFAULT_DELAY_TIME + 500L * packetCount;
         if (packetCount > 1) {
             data = new byte[DATA_LENGTH_MAX + 6];
             data[0] = (byte) 0xEE;
@@ -649,10 +649,9 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) packetCount;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            for (int i = 0; i < dataLength; i++) {
-                data[i + 6] = dataBytes[i];
-            }
+            System.arraycopy(dataBytes, 0, data, 6, dataLength);
         }
+        inputSteam.close();
     }
 
     public void setFilterNameRules(ArrayList<String> filterNameRules) {
@@ -685,7 +684,7 @@ public class ParamsTask extends OrderTask {
         }
         remainPack = packetCount - 1;
         packetIndex = 0;
-        delayTime = DEFAULT_DELAY_TIME + 500 * packetCount;
+        delayTime = DEFAULT_DELAY_TIME + 500L * packetCount;
         if (packetCount > 1) {
             data = new byte[DATA_LENGTH_MAX + 6];
             data[0] = (byte) 0xEE;
@@ -705,9 +704,7 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) packetCount;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            for (int i = 0; i < dataLength; i++) {
-                data[i + 6] = dataBytes[i];
-            }
+            System.arraycopy(dataBytes, 0, data, 6, dataLength);
         }
     }
 
@@ -725,7 +722,7 @@ public class ParamsTask extends OrderTask {
         }
         remainPack = packetCount - 1;
         packetIndex = 0;
-        delayTime = DEFAULT_DELAY_TIME + 500 * packetCount;
+        delayTime = DEFAULT_DELAY_TIME + 500L * packetCount;
         if (packetCount > 1) {
             data = new byte[DATA_LENGTH_MAX + 6];
             data[0] = (byte) 0xEE;
@@ -745,9 +742,7 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) 0x01;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            for (int i = 0; i < dataLength; i++) {
-                data[i + 6] = dataBytes[i];
-            }
+            System.arraycopy(dataBytes, 0, data, 6, dataLength);
         }
     }
 
@@ -758,7 +753,7 @@ public class ParamsTask extends OrderTask {
     private int dataOrigin;
     private byte[] dataBytes;
     private String dataBytesStr = "";
-    private static final int DATA_LENGTH_MAX = 238;
+    private static final int DATA_LENGTH_MAX = 230;
 
     @Override
     public boolean parseValue(byte[] value) {
@@ -812,9 +807,7 @@ public class ParamsTask extends OrderTask {
                 data[2] = (byte) cmd;
                 data[3] = dataLengthBytes[0];
                 data[4] = dataLengthBytes[1];
-                for (int i = 0; i < dataLength; i++) {
-                    data[i + 5] = dataBytes[i];
-                }
+                System.arraycopy(dataBytes, 0, data, 5, dataLength);
                 response.responseValue = data;
                 orderStatus = ORDER_STATUS_SUCCESS;
                 MokoSupport.getInstance().pollTask();
@@ -896,9 +889,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_I_BEACON_UUID.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < uuidBytes.length; i++) {
-            data[i + 4] = uuidBytes[i];
-        }
+        System.arraycopy(uuidBytes, 0, data, 4, uuidBytes.length);
         response.responseValue = data;
     }
 
@@ -919,6 +910,16 @@ public class ParamsTask extends OrderTask {
                 (byte) ParamsKeyEnum.KEY_I_BEACON_TX_POWER.getParamsKey(),
                 (byte) 0x01,
                 (byte) txPower
+        };
+    }
+
+    public void setIBeaconRssi1M(@IntRange(from = -100, to = 0) int rssi1M) {
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_I_BEACON_RSSI1M.getParamsKey(),
+                (byte) 0x01,
+                (byte) rssi1M
         };
     }
 }

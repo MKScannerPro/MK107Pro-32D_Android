@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SSLDeviceFragment extends Fragment {
-    public static final int REQUEST_CODE_SELECT_CA = 0x10;
-    public static final int REQUEST_CODE_SELECT_CLIENT_KEY = 0x11;
-    public static final int REQUEST_CODE_SELECT_CLIENT_CERT = 0x12;
+    private static final int REQUEST_CODE_SELECT_CA = 0x10;
+    private static final int REQUEST_CODE_SELECT_CLIENT_KEY = 0x11;
+    private static final int REQUEST_CODE_SELECT_CLIENT_CERT = 0x12;
     private static final String TAG = SSLDeviceFragment.class.getSimpleName();
     private FragmentSslDevice107pro32dBinding mBind;
     private int mConnectMode;
@@ -127,7 +127,7 @@ public class SSLDeviceFragment extends Fragment {
 
     public void selectCertificate() {
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas((ArrayList<String>) Arrays.asList(values), selected);
+        dialog.setDatas(new ArrayList<>(Arrays.asList(values)), selected);
         dialog.setListener(value -> {
             selected = value;
             mBind.tvCertification.setText(values[selected]);

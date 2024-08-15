@@ -19,17 +19,18 @@ import com.moko.mk107pro32d.utils.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SSLFragment extends Fragment {
-    public static final int REQUEST_CODE_SELECT_CA = 0x10;
-    public static final int REQUEST_CODE_SELECT_CLIENT_KEY = 0x11;
-    public static final int REQUEST_CODE_SELECT_CLIENT_CERT = 0x12;
+    private static final int REQUEST_CODE_SELECT_CA = 0x10;
+    private static final int REQUEST_CODE_SELECT_CLIENT_KEY = 0x11;
+    private static final int REQUEST_CODE_SELECT_CLIENT_CERT = 0x12;
     private FragmentSslApp107pro32dBinding mBind;
     private int connectMode;
     private String caPath;
     private String clientKeyPath;
     private String clientCertPath;
-    private ArrayList<String> values;
+    private final String[] values = {"CA signed server certificate", "CA certificate", "Self signed certificates"};
     private int selected;
 
     public SSLFragment() {
@@ -38,6 +39,7 @@ public class SSLFragment extends Fragment {
     public static SSLFragment newInstance() {
         return new SSLFragment();
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBind = FragmentSslApp107pro32dBinding.inflate(inflater, container, false);
@@ -51,16 +53,12 @@ public class SSLFragment extends Fragment {
             }
             mBind.clCertificate.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         });
-        values = new ArrayList<>();
-        values.add("CA signed server certificate");
-        values.add("CA certificate");
-        values.add("Self signed certificates");
         if (connectMode > 0) {
             selected = connectMode - 1;
             mBind.tvCaFile.setText(caPath);
             mBind.tvClientKeyFile.setText(clientKeyPath);
             mBind.tvClientCertFile.setText(clientCertPath);
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
         }
         if (selected == 0) {
             mBind.llCa.setVisibility(View.GONE);
@@ -85,7 +83,7 @@ public class SSLFragment extends Fragment {
         mBind.clCertificate.setVisibility(connectMode > 0 ? View.VISIBLE : View.GONE);
         if (connectMode > 0) {
             selected = connectMode - 1;
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
             if (selected == 0) {
                 mBind.llCa.setVisibility(View.GONE);
                 mBind.llClientKey.setVisibility(View.GONE);
@@ -123,10 +121,10 @@ public class SSLFragment extends Fragment {
 
     public void selectCertificate() {
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(values, selected);
+        dialog.setDatas(new ArrayList<>(Arrays.asList(values)), selected);
         dialog.setListener(value -> {
             selected = value;
-            mBind.tvCertification.setText(values.get(selected));
+            mBind.tvCertification.setText(values[selected]);
             if (selected == 0) {
                 connectMode = 1;
                 mBind.llCa.setVisibility(View.GONE);

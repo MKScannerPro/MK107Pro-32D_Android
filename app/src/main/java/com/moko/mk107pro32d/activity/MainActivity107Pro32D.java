@@ -482,8 +482,7 @@ public class MainActivity107Pro32D extends BaseActivity<ActivityMain107pro32dBin
     }
 
     public void onBack(View view) {
-        if (isWindowLocked()) return;
-        back();
+        onBackPressed();
     }
 
     @Override
