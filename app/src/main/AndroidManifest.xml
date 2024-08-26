@@ -11,7 +11,7 @@
         android:name="com.moko.mk107pro32d.BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="MKMINI02_32D"
+        android:label="MK107Pro_32D"
         android:theme="@style/LaunchActivityTheme">
 
         <activity
