@@ -435,11 +435,12 @@
                     android:src="@drawable/select_file" />
             </LinearLayout>
 
-            <include layout="@layout/layout_dhcp_info"
+            <include
+                android:id="@+id/layoutIp"
+                layout="@layout/layout_dhcp_info_107pro32d"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/ll_key"
-                android:id="@+id/layoutIp"/>
+                app:layout_constraintTop_toBottomOf="@+id/ll_key" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
