@@ -14,8 +14,8 @@ import com.moko.mk107pro32d.base.BaseActivity;
 import com.moko.mk107pro32d.databinding.ActivityModifyDeviceName107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
 import com.moko.mk107pro32d.entity.MokoDevice;
-import com.moko.mk107pro32d.utils.ToastUtils;
-import com.moko.support.mk107pro32d.event.MQTTConnectionCompleteEvent;
+import com.moko.lib.scannerui.utils.ToastUtils;
+import com.moko.lib.mqtt.event.MQTTConnectionCompleteEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

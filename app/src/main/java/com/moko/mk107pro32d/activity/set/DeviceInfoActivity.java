@@ -17,10 +17,10 @@ import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.SPUtiles;
 import com.moko.support.mk107pro32d.MQTTConstants;
-import com.moko.support.mk107pro32d.MQTTSupport;
-import com.moko.support.mk107pro32d.entity.MsgReadResult;
-import com.moko.support.mk107pro32d.event.DeviceOnlineEvent;
-import com.moko.support.mk107pro32d.event.MQTTMessageArrivedEvent;
+import com.moko.lib.mqtt.MQTTSupport;
+import com.moko.lib.mqtt.entity.MsgReadResult;
+import com.moko.lib.mqtt.event.DeviceOnlineEvent;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.greenrobot.eventbus.Subscribe;

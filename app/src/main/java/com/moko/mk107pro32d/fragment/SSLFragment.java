@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.databinding.FragmentSslApp107pro32dBinding;
-import com.moko.mk107pro32d.dialog.BottomDialog;
+import com.moko.lib.scannerui.dialog.BottomDialog;
 import com.moko.mk107pro32d.utils.FileUtils;
-import com.moko.mk107pro32d.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;

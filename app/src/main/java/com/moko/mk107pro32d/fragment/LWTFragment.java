@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.moko.mk107pro32d.databinding.FragmentLwt107pro32dBinding;
-import com.moko.mk107pro32d.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 
 public class LWTFragment extends Fragment {
     private final String FILTER_ASCII = "[ -~]*";

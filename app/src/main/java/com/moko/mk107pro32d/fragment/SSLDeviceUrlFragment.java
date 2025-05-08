@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.moko.mk107pro32d.activity.set.ModifyMQTTSettingsActivity;
 import com.moko.mk107pro32d.databinding.FragmentSslDeviceUrl107pro32dBinding;
-import com.moko.mk107pro32d.dialog.BottomDialog;
+import com.moko.lib.scannerui.dialog.BottomDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;

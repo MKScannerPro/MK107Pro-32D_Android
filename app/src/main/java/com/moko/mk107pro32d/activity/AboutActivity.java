@@ -8,9 +8,9 @@ import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.base.BaseActivity;
 import com.moko.mk107pro32d.databinding.ActivityAboutBinding;
-import com.moko.mk107pro32d.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mk107pro32d.utils.Utils;
-import com.moko.support.mk107pro32d.event.MQTTConnectionCompleteEvent;
+import com.moko.lib.mqtt.event.MQTTConnectionCompleteEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -48,8 +48,8 @@ public class AboutActivity extends BaseActivity<ActivityAboutBinding> {
     public void onFeedbackLog(View view) {
         if (isWindowLocked())
             return;
-        File trackerLog = new File(MainActivity107Pro32D.PATH_LOGCAT + File.separator + "MKRemoteGW20D.txt");
-        File trackerLogBak = new File(MainActivity107Pro32D.PATH_LOGCAT + File.separator + "MKRemoteGW20D.txt.bak");
+        File trackerLog = new File(MainActivity107Pro32D.PATH_LOGCAT + File.separator + "MK107Pro32D.txt");
+        File trackerLogBak = new File(MainActivity107Pro32D.PATH_LOGCAT + File.separator + "MK107Pro32D.txt.bak");
         File trackerCrashLog = new File(MainActivity107Pro32D.PATH_LOGCAT + File.separator + "crash_log.txt");
         if (!trackerLog.exists() || !trackerLog.canRead()) {
             ToastUtils.showToast(this, "File is not exists!");

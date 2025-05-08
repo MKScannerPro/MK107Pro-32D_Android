@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.moko.mk107pro32d.databinding.FragmentGeneralApp107pro32dBinding;
-import com.moko.mk107pro32d.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 
 public class GeneralFragment extends Fragment {
     private static final String TAG = GeneralFragment.class.getSimpleName();
