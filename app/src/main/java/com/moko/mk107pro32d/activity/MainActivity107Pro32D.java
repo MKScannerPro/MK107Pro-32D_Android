@@ -13,6 +13,7 @@ import android.view.View;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import okhttp3.RequestBody;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
@@ -20,6 +21,19 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpHeaders;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
+import com.moko.lib.scanneriot.IoTDMConstants;
+import com.moko.lib.scanneriot.Urls;
+import com.moko.lib.scanneriot.activity.SyncDeviceActivity;
+import com.moko.lib.scanneriot.dialog.LoginDialog;
+import com.moko.lib.scanneriot.entity.CommonResp;
+import com.moko.lib.scanneriot.entity.LoginEntity;
+import com.moko.lib.scanneriot.entity.SyncDevice;
+import com.moko.lib.scanneriot.utils.IoTDMSPUtils;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.BuildConfig;
 import com.moko.mk107pro32d.R;
@@ -306,6 +320,96 @@ public class MainActivity107Pro32D extends BaseActivity<ActivityMain107pro32dBin
             ToastUtils.showToast(this, String.format("SSID:%s, the network cannot available,please check", ssid));
             XLog.i(String.format("SSID:%s, the network cannot available,please check", ssid));
         }
+    }
+
+    public void mainSyncDevices(View view) {
+        if (isWindowLocked()) return;
+        if (devices.isEmpty()) {
+            ToastUtils.showToast(this, "Add devices first");
+            return;
+        }
+        // 登录
+        String account = IoTDMSPUtils.getStringValue(this, IoTDMConstants.EXTRA_KEY_LOGIN_ACCOUNT, "");
+        String password = IoTDMSPUtils.getStringValue(this, IoTDMConstants.EXTRA_KEY_LOGIN_PASSWORD, "");
+        int env = IoTDMSPUtils.getIntValue(this, IoTDMConstants.EXTRA_KEY_LOGIN_ENV, 0);
+        if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
+            LoginDialog dialog = new LoginDialog();
+            dialog.setOnLoginClicked(this::login);
+            dialog.show(getSupportFragmentManager());
+            return;
+        }
+        login(account, password, env);
+    }
+
+    private void login(String account, String password, int envValue) {
+        LoginEntity entity = new LoginEntity();
+        entity.username = account;
+        entity.password = password;
+        entity.source = 1;
+        if (envValue == 0)
+            Urls.setCloudEnv(getApplicationContext());
+        else
+            Urls.setTestEnv(getApplicationContext());
+        RequestBody body = RequestBody.create(Urls.JSON, new Gson().toJson(entity));
+        OkGo.<String>post(Urls.loginApi(getApplicationContext()))
+                .upRequestBody(body)
+                .execute(new StringCallback() {
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        showLoadingProgressDialog();
+                    }
+
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Type type = new TypeToken<CommonResp<JsonObject>>() {
+                        }.getType();
+                        CommonResp<JsonObject> commonResp = new Gson().fromJson(response.body(), type);
+                        if (commonResp.code != 200) {
+                            ToastUtils.showToast(MainActivity107Pro32D.this, commonResp.msg);
+                            LoginDialog dialog = new LoginDialog();
+                            dialog.setOnLoginClicked((account1, password1, env) -> login(account1, password1, env));
+                            dialog.show(getSupportFragmentManager());
+                            return;
+                        }
+                        // add header
+                        String accessToken = commonResp.data.get("access_token").getAsString();
+                        HttpHeaders headers = new HttpHeaders();
+                        headers.put("Authorization", accessToken);
+                        OkGo.getInstance().addCommonHeaders(headers);
+
+                        IoTDMSPUtils.setStringValue(MainActivity107Pro32D.this, IoTDMConstants.EXTRA_KEY_LOGIN_ACCOUNT, account);
+                        IoTDMSPUtils.setStringValue(MainActivity107Pro32D.this, IoTDMConstants.EXTRA_KEY_LOGIN_PASSWORD, password);
+                        IoTDMSPUtils.setIntValue(MainActivity107Pro32D.this, IoTDMConstants.EXTRA_KEY_LOGIN_ENV, envValue);
+                        Intent intent = new Intent(MainActivity107Pro32D.this, SyncDeviceActivity.class);
+                        ArrayList<SyncDevice> syncDevices = new ArrayList<>();
+                        for (MokoDevice device : devices) {
+                            SyncDevice syncDevice = new SyncDevice();
+                            syncDevice.mac = device.mac;
+                            syncDevice.macName = device.name;
+                            syncDevice.publishTopic = device.topicPublish;
+                            syncDevice.subscribeTopic = device.topicSubscribe;
+                            syncDevice.lastWill = device.lwtTopic;
+                            syncDevice.model = "25";
+                            syncDevices.add(syncDevice);
+                        }
+                        intent.putExtra(IoTDMConstants.EXTRA_KEY_SYNC_DEVICES, syncDevices);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        ToastUtils.showToast(MainActivity107Pro32D.this, R.string.request_error);
+                        LoginDialog dialog = new LoginDialog();
+                        dialog.setOnLoginClicked((account12, password12, env) -> login(account12, password12, env));
+                        dialog.show(getSupportFragmentManager());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        dismissLoadingProgressDialog();
+                    }
+                });
     }
 
     @Override
