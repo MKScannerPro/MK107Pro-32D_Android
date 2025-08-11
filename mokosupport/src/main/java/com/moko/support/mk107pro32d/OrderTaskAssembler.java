@@ -3,7 +3,6 @@ package com.moko.support.mk107pro32d;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.support.mk107pro32d.entity.ParamsKeyEnum;
 import com.moko.support.mk107pro32d.entity.ParamsLongKeyEnum;
-import com.moko.support.mk107pro32d.task.GetFirmwareRevisionTask;
 import com.moko.support.mk107pro32d.task.GetHardwareRevisionTask;
 import com.moko.support.mk107pro32d.task.GetManufacturerNameTask;
 import com.moko.support.mk107pro32d.task.GetModelNumberTask;
@@ -68,6 +67,7 @@ public class OrderTaskAssembler {
 //        GetFirmwareRevisionTask task = new GetFirmwareRevisionTask();
 //        return task;
 //    }
+
     public static OrderTask getBleMac() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_BLE_MAC);
@@ -79,6 +79,13 @@ public class OrderTaskAssembler {
         task.setData(ParamsKeyEnum.KEY_WIFI_FIRMWARE_VERSION);
         return task;
     }
+
+    public static OrderTask getBleFirmwareVersion() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_BLE_FIRMWARE_VERSION);
+        return task;
+    }
+
     public static OrderTask getWifiMac() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_WIFI_MAC);
@@ -332,6 +339,12 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask getReportInterval() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_REPORT_INTERVAL);
+        return task;
+    }
+
     public static OrderTask getIBeaconEnable() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_I_BEACON_SWITCH);
@@ -374,9 +387,22 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask getIBeaconConnectable() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_I_BEACON_CONNECTABLE);
+        return task;
+    }
+
+    public static OrderTask getNearbyWifi() {
+        ParamsTask task = new ParamsTask();
+        task.getNearbyWifi();
+        return task;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // WRITE
+
     ///////////////////////////////////////////////////////////////////////////
 
     public static OrderTask reboot() {
@@ -663,6 +689,12 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask setReportInterval(@IntRange(from = 0, to = 86400) int interval) {
+        ParamsTask task = new ParamsTask();
+        task.setReportInterval(interval);
+        return task;
+    }
+
     public static OrderTask setMqttUserName(String username) {
         ParamsTask task = new ParamsTask();
         task.setLongChar(ParamsLongKeyEnum.KEY_MQTT_USERNAME, username);
@@ -756,6 +788,12 @@ public class OrderTaskAssembler {
     public static OrderTask setIBeaconRssi1M(@IntRange(from = -100, to = 0) int rssi1M) {
         ParamsTask task = new ParamsTask();
         task.setIBeaconRssi1M(rssi1M);
+        return task;
+    }
+
+    public static OrderTask setIBeaconConnectable(@IntRange(from = 0, to = 1) int enable) {
+        ParamsTask task = new ParamsTask();
+        task.setIBeaconConnectable(enable);
         return task;
     }
 }

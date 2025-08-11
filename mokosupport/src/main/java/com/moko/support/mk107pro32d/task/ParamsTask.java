@@ -1,5 +1,8 @@
 package com.moko.support.mk107pro32d.task;
 
+import android.text.TextUtils;
+
+import com.elvishew.xlog.XLog;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.support.mk107pro32d.MokoSupport;
@@ -11,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 import androidx.annotation.IntRange;
 
@@ -52,6 +56,15 @@ public class ParamsTask extends OrderTask {
                 (byte) 0x00
         };
         response.responseValue = data;
+    }
+
+    public void getNearbyWifi() {
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_WIFI_SEARCH.getParamsKey(),
+                (byte) 0x00
+        };
     }
 
     public void reboot() {
@@ -617,6 +630,21 @@ public class ParamsTask extends OrderTask {
         response.responseValue = data;
     }
 
+    public void setReportInterval(@IntRange(from = 0, to = 86400) int interval) {
+        byte[] dataBytes = MokoUtils.toByteArray(interval, 4);
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_REPORT_INTERVAL.getParamsKey(),
+                (byte) 0x04,
+                (byte) dataBytes[0],
+                (byte) dataBytes[1],
+                (byte) dataBytes[2],
+                (byte) dataBytes[3]
+        };
+        response.responseValue = data;
+    }
+
     public void setFile(ParamsLongKeyEnum key, File file) throws Exception {
         FileInputStream inputSteam = new FileInputStream(file);
         dataBytes = new byte[(int) file.length()];
@@ -649,9 +677,12 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) packetCount;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            System.arraycopy(dataBytes, 0, data, 6, dataLength);
+            for (int i = 0; i < dataLength; i++) {
+                data[i + 6] = dataBytes[i];
+            }
         }
         inputSteam.close();
+        response.responseValue = data;
     }
 
     public void setFilterNameRules(ArrayList<String> filterNameRules) {
@@ -704,8 +735,11 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) packetCount;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            System.arraycopy(dataBytes, 0, data, 6, dataLength);
+            for (int i = 0; i < dataLength; i++) {
+                data[i + 6] = dataBytes[i];
+            }
         }
+        response.responseValue = data;
     }
 
     public void setLongChar(ParamsLongKeyEnum key, String character) {
@@ -742,8 +776,11 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) 0x01;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            System.arraycopy(dataBytes, 0, data, 6, dataLength);
+            for (int i = 0; i < dataLength; i++) {
+                data[i + 6] = dataBytes[i];
+            }
         }
+        response.responseValue = data;
     }
 
     private int packetCount;
@@ -759,8 +796,7 @@ public class ParamsTask extends OrderTask {
     public boolean parseValue(byte[] value) {
         final int header = value[0] & 0xFF;
         final int flag = value[1] & 0xFF;
-        if (header == 0xED)
-            return true;
+        if (header == 0xED) return true;
         if (flag == 0x01) {
             final int cmd = value[2] & 0xFF;
             final int result = value[4] & 0xFF;
@@ -807,7 +843,9 @@ public class ParamsTask extends OrderTask {
                 data[2] = (byte) cmd;
                 data[3] = dataLengthBytes[0];
                 data[4] = dataLengthBytes[1];
-                System.arraycopy(dataBytes, 0, data, 5, dataLength);
+                for (int i = 0; i < dataLength; i++) {
+                    data[i + 5] = dataBytes[i];
+                }
                 response.responseValue = data;
                 orderStatus = ORDER_STATUS_SUCCESS;
                 MokoSupport.getInstance().pollTask();
@@ -889,7 +927,9 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_I_BEACON_UUID.getParamsKey();
         data[3] = (byte) length;
-        System.arraycopy(uuidBytes, 0, data, 4, uuidBytes.length);
+        for (int i = 0; i < uuidBytes.length; i++) {
+            data[i + 4] = uuidBytes[i];
+        }
         response.responseValue = data;
     }
 
@@ -921,5 +961,42 @@ public class ParamsTask extends OrderTask {
                 (byte) 0x01,
                 (byte) rssi1M
         };
+    }
+
+    public void setIBeaconConnectable(@IntRange(from = 0, to = 1) int enable) {
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_I_BEACON_CONNECTABLE.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+    }
+
+    private int retryCount = 0;
+
+    @Override
+    public boolean timeoutPreTask() {
+        retryCount++;
+        if (retryCount < 3) {
+            if (data != null && data.length > 4) {
+                String keyCmd = "";
+                if ((data[0] & 0xFF) == 0xED) {
+                    ParamsKeyEnum keyEnum = ParamsKeyEnum.fromParamKey(data[2] & 0xFF);
+                    keyCmd = keyEnum != null ? keyEnum.name() : "";
+                }
+                if ((data[0] & 0xFF) == 0xEE) {
+                    ParamsLongKeyEnum keyEnum = ParamsLongKeyEnum.fromParamKey(data[2] & 0xFF);
+                    keyCmd = keyEnum != null ? keyEnum.name() : "";
+                }
+                if (!TextUtils.isEmpty(keyCmd)) {
+                    XLog.i(String.format(Locale.getDefault(), "%s Timeout,Retry index----%d", keyCmd, retryCount));
+                    MokoSupport.getInstance().executeTask();
+                    return false;
+                }
+            }
+        }
+        retryCount = 0;
+        return super.timeoutPreTask();
     }
 }

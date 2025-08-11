@@ -53,6 +53,8 @@ public class FilterBXPTagActivity extends BaseActivity<ActivityFilterBxpTag107pr
         String mqttConfigAppStr = SPUtiles.getStringValue(this, AppConstants.SP_KEY_MQTT_CONFIG_APP, "");
         appMqttConfig = new Gson().fromJson(mqttConfigAppStr, MQTTConfig.class);
         mAppTopic = TextUtils.isEmpty(appMqttConfig.topicPublish) ? mMokoDevice.topicSubscribe : appMqttConfig.topicPublish;
+        mBind.tvTitle.setText(mMokoDevice.deviceType != 0x60 ? "BXP- Tag/Sensor" : "BXP- Tag");
+        mBind.cbBxpTag.setText(mMokoDevice.deviceType != 0x60 ? "BXP- Tag/Sensor" : "BXP- Tag");
         mHandler = new Handler(Looper.getMainLooper());
         mHandler.postDelayed(() -> {
             dismissLoadingProgressDialog();
@@ -162,7 +164,7 @@ public class FilterBXPTagActivity extends BaseActivity<ActivityFilterBxpTag107pr
         if (isWindowLocked()) return;
         int count = mBind.llTagId.getChildCount();
         if (count > 9) {
-            ToastUtils.showToast(this, "You can set up to 10 filters!");
+            ToastUtils.showToast(this, "You can settings up to 10 filters!");
             return;
         }
         View v = LayoutInflater.from(this).inflate(R.layout.item_mac_address_filter_107pro32d, mBind.llTagId, false);

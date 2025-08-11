@@ -15,6 +15,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.moko.mk107pro32d.AppConstants;
+import com.moko.mk107pro32d.activity.beacon.BXPButtonInfoActivity;
+import com.moko.mk107pro32d.activity.beacon.BleOtherInfoActivity;
 import com.moko.mk107pro32d.adapter.BleDeviceAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
 import com.moko.mk107pro32d.databinding.ActivityBleDevices107pro32dBinding;
@@ -29,6 +31,7 @@ import com.moko.support.mk107pro32d.MQTTConstants;
 import com.moko.lib.mqtt.MQTTSupport;
 import com.moko.support.mk107pro32d.MokoSupport;
 import com.moko.support.mk107pro32d.entity.BXPButtonInfo;
+import com.moko.support.mk107pro32d.entity.BeaconInfo;
 import com.moko.support.mk107pro32d.entity.BleDevice;
 import com.moko.lib.mqtt.entity.MsgNotify;
 import com.moko.support.mk107pro32d.entity.OtherDeviceInfo;
@@ -52,6 +55,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
     private MokoDevice mMokoDevice;
     private MQTTConfig appMqttConfig;
     private String mAppTopic;
+
     private BleDeviceAdapter mAdapter;
     private ArrayList<BleDevice> mBleDevices;
     private ConcurrentHashMap<String, BleDevice> mBleDevicesMap;
@@ -81,11 +85,14 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
     private void refreshList() {
         new Thread(() -> {
             while (refreshFlag) {
-                runOnUiThread(() -> mAdapter.replaceData(mBleDevices));
+                runOnUiThread(() -> {
+                    mBind.tvCount.setText(String.format("Count:%d", mBleDevices.size()));
+                    mAdapter.replaceData(mBleDevices);
+                });
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
-                    XLog.e(e);
+                    e.printStackTrace();
                 }
                 updateDevices();
             }
@@ -99,6 +106,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 100)
     public void onMQTTMessageArrivedEvent(MQTTMessageArrivedEvent event) {
+        // 更新所有设备的网络状态
         final String message = event.getMessage();
         if (TextUtils.isEmpty(message)) return;
         int msg_id;
@@ -107,7 +115,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
             JsonElement element = object.get("msg_id");
             msg_id = element.getAsInt();
         } catch (Exception e) {
-            XLog.e(e);
+            e.printStackTrace();
             return;
         }
         if (msg_id == MQTTConstants.NOTIFY_MSG_ID_BLE_SCAN_RESULT) {
@@ -118,6 +126,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
                 MsgNotify<List<BleDevice>> result = new Gson().fromJson(message, type);
                 if (!mMokoDevice.mac.equalsIgnoreCase(result.device_info.mac)) return;
                 List<BleDevice> bleDevices = result.data;
+
                 for (BleDevice device : bleDevices) {
                     if (device.rssi < filterRssi) continue;
                     if (!mBleDevicesMap.containsKey(device.mac)) {
@@ -133,23 +142,22 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
                 }
             });
         }
-        if (msg_id == MQTTConstants.NOTIFY_MSG_ID_BLE_BXP_BUTTON_CONNECT_RESULT) {
+        if (msg_id == MQTTConstants.NOTIFY_MSG_ID_BLE_BXP_B_D_CONNECT_RESULT) {
             runOnUiThread(() -> {
                 dismissLoadingProgressDialog();
                 mHandler.removeMessages(0);
-                Type type = new TypeToken<MsgNotify<BXPButtonInfo>>() {
+                Type type = new TypeToken<MsgNotify<BeaconInfo>>() {
                 }.getType();
-                MsgNotify<BXPButtonInfo> result = new Gson().fromJson(message, type);
-                if (!mMokoDevice.mac.equalsIgnoreCase(result.device_info.mac))
-                    return;
-                BXPButtonInfo bxpButtonInfo = result.data;
-                if (bxpButtonInfo.result_code != 0) {
-                    ToastUtils.showToast(this, bxpButtonInfo.result_msg);
+                MsgNotify<BeaconInfo> result = new Gson().fromJson(message, type);
+                if (!mMokoDevice.mac.equalsIgnoreCase(result.device_info.mac)) return;
+                BeaconInfo beaconInfo = result.data;
+                if (beaconInfo.result_code != 0) {
+                    ToastUtils.showToast(this, beaconInfo.result_msg);
                     return;
                 }
                 Intent intent = new Intent(this, BXPButtonInfoActivity.class);
                 intent.putExtra(AppConstants.EXTRA_KEY_DEVICE, mMokoDevice);
-                intent.putExtra(AppConstants.EXTRA_KEY_BXP_BUTTON_INFO, bxpButtonInfo);
+                intent.putExtra(AppConstants.EXTRA_KEY_BEACON_INFO, beaconInfo);
                 startActivity(intent);
             });
         }
@@ -178,7 +186,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDeviceModifyNameEvent(DeviceModifyNameEvent event) {
         // 修改了设备名称
-        MokoDevice device = DBTools.getInstance(getApplicationContext()).selectDevice(mMokoDevice.mac);
+        MokoDevice device = DBTools.getInstance(BleManagerActivity.this).selectDevice(mMokoDevice.mac);
         mMokoDevice.name = device.name;
         mBind.tvDeviceName.setText(mMokoDevice.name);
     }
@@ -331,7 +339,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
     }
 
     private void getBleDeviceInfo(BleDevice bleDevice, String password) {
-        int msgId = MQTTConstants.CONFIG_MSG_ID_BLE_BXP_BUTTON_CONNECT;
+        int msgId = MQTTConstants.CONFIG_MSG_ID_BLE_BXP_B_D_CONNECT;
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mac", bleDevice.mac);
         jsonObject.addProperty("passwd", password);
@@ -339,7 +347,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
         try {
             MQTTSupport.getInstance().publish(mAppTopic, message, msgId, appMqttConfig.qos);
         } catch (MqttException e) {
-            XLog.e(e);
+            e.printStackTrace();
         }
     }
 
@@ -351,7 +359,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevices107pro32d
         try {
             MQTTSupport.getInstance().publish(mAppTopic, message, msgId, appMqttConfig.qos);
         } catch (MqttException e) {
-            XLog.e(e);
+            e.printStackTrace();
         }
     }
 
