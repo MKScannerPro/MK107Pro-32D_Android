@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moko.mk107pro32d.databinding.FragmentUserDevice107pro32dBinding;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.moko.mk107pro32d.databinding.FragmentUserDevice107pro32dBinding;
 
 public class UserDeviceFragment extends Fragment {
     private final String FILTER_ASCII = "[ -~]*";

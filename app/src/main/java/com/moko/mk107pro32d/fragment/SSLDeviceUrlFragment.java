@@ -6,15 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
+import com.moko.lib.scannerui.dialog.BottomDialog;
 import com.moko.mk107pro32d.activity.modify.ModifyMQTTSettingsActivity;
 import com.moko.mk107pro32d.databinding.FragmentSslDeviceUrl107pro32dBinding;
-import com.moko.lib.scannerui.dialog.BottomDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 public class SSLDeviceUrlFragment extends Fragment {
     private FragmentSslDeviceUrl107pro32dBinding mBind;

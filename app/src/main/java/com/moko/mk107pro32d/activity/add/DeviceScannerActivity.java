@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.moko.ble.lib.MokoConstants;
@@ -19,14 +16,14 @@ import com.moko.ble.lib.event.ConnectStatusEvent;
 import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
+import com.moko.lib.scannerui.dialog.PasswordDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.adapter.DeviceInfoAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
 import com.moko.mk107pro32d.databinding.ActivityScanner107pro32dBinding;
-import com.moko.lib.scannerui.dialog.PasswordDialog;
 import com.moko.mk107pro32d.utils.SPUtiles;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mk107pro32d.MokoBleScanner;
 import com.moko.support.mk107pro32d.MokoSupport;
 import com.moko.support.mk107pro32d.OrderTaskAssembler;
@@ -44,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import no.nordicsemi.android.support.v18.scanner.ScanRecord;
 import no.nordicsemi.android.support.v18.scanner.ScanResult;
 

@@ -7,9 +7,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.elvishew.xlog.XLog;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.gson.Gson;
@@ -20,7 +17,12 @@ import com.moko.ble.lib.MokoConstants;
 import com.moko.ble.lib.event.ConnectStatusEvent;
 import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTaskResponse;
+import com.moko.lib.mqtt.MQTTSupport;
+import com.moko.lib.mqtt.entity.MsgNotify;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 import com.moko.lib.scannerui.dialog.AlertMessageDialog;
+import com.moko.lib.scannerui.dialog.CustomDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.activity.MainActivity107Pro32D;
@@ -28,19 +30,14 @@ import com.moko.mk107pro32d.activity.ModifyNameActivity;
 import com.moko.mk107pro32d.base.BaseActivity;
 import com.moko.mk107pro32d.databinding.ActivityDeviceConfig107pro32dBinding;
 import com.moko.mk107pro32d.db.DBTools;
-import com.moko.lib.scannerui.dialog.CustomDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.utils.SPUtiles;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mk107pro32d.MQTTConstants;
-import com.moko.lib.mqtt.MQTTSupport;
 import com.moko.support.mk107pro32d.MokoSupport;
 import com.moko.support.mk107pro32d.OrderTaskAssembler;
-import com.moko.lib.mqtt.entity.MsgNotify;
 import com.moko.support.mk107pro32d.entity.OrderCHAR;
 import com.moko.support.mk107pro32d.entity.ParamsKeyEnum;
-import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.greenrobot.eventbus.EventBus;
@@ -48,6 +45,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfig107pro32dBinding> {
     public static String TAG = ModifyNameActivity.class.getSimpleName();

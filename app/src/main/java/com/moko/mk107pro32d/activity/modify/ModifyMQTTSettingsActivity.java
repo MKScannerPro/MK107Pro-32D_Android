@@ -10,23 +10,25 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.moko.lib.mqtt.MQTTSupport;
+import com.moko.lib.mqtt.entity.MsgConfigResult;
+import com.moko.lib.mqtt.entity.MsgNotify;
+import com.moko.lib.mqtt.entity.MsgReadResult;
+import com.moko.lib.mqtt.event.DeviceOnlineEvent;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
+import com.moko.lib.scannerui.dialog.AlertMessageDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mk107pro32d.AppConstants;
 import com.moko.mk107pro32d.R;
 import com.moko.mk107pro32d.activity.MainActivity107Pro32D;
 import com.moko.mk107pro32d.adapter.MQTTFragmentAdapter;
 import com.moko.mk107pro32d.base.BaseActivity;
 import com.moko.mk107pro32d.databinding.ActivityMqttDeviceModify107pro32dBinding;
-import com.moko.lib.scannerui.dialog.AlertMessageDialog;
 import com.moko.mk107pro32d.entity.MQTTConfig;
 import com.moko.mk107pro32d.entity.MokoDevice;
 import com.moko.mk107pro32d.fragment.GeneralDeviceFragment;
@@ -35,15 +37,8 @@ import com.moko.mk107pro32d.fragment.SSLDeviceUrlFragment;
 import com.moko.mk107pro32d.fragment.UserDeviceFragment;
 import com.moko.mk107pro32d.utils.FileUtils;
 import com.moko.mk107pro32d.utils.SPUtiles;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mk107pro32d.utils.Utils;
 import com.moko.support.mk107pro32d.MQTTConstants;
-import com.moko.lib.mqtt.MQTTSupport;
-import com.moko.lib.mqtt.entity.MsgConfigResult;
-import com.moko.lib.mqtt.entity.MsgNotify;
-import com.moko.lib.mqtt.entity.MsgReadResult;
-import com.moko.lib.mqtt.event.DeviceOnlineEvent;
-import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -60,6 +55,11 @@ import java.io.File;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceModify107pro32dBinding> implements RadioGroup.OnCheckedChangeListener {
     public static String TAG = ModifyMQTTSettingsActivity.class.getSimpleName();

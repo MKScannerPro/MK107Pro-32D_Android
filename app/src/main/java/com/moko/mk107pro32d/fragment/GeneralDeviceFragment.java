@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moko.lib.scannerui.utils.ToastUtils;
+import com.moko.mk107pro32d.databinding.FragmentGeneralDevice107pro32dBinding;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.moko.mk107pro32d.databinding.FragmentGeneralDevice107pro32dBinding;
-import com.moko.lib.scannerui.utils.ToastUtils;
 
 public class GeneralDeviceFragment extends Fragment {
     private FragmentGeneralDevice107pro32dBinding mBind;
