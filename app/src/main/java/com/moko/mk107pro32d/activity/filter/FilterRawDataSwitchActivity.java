@@ -100,6 +100,8 @@ public class FilterRawDataSwitchActivity extends BaseActivity<ActivityFilterRawD
             mBind.tvFilterByPir.setText(result.data.get("pir").getAsInt() == 1 ? "ON" : "OFF");
             mBind.tvFilterByTof.setText(result.data.get("mk_tof").getAsInt() == 1 ? "ON" : "OFF");
             mBind.tvFilterByOther.setText(result.data.get("other").getAsInt() == 1 ? "ON" : "OFF");
+            if (mMokoDevice.deviceType != 0x60)
+                mBind.tvFilterByNano.setText(result.data.get("nano_beacon_info").getAsInt() == 1 ? "ON" : "OFF");
         }
         if (msg_id == MQTTConstants.CONFIG_MSG_ID_FILTER_BXP_DEVICE_INFO
                 || msg_id == MQTTConstants.CONFIG_MSG_ID_FILTER_BXP_ACC
@@ -240,6 +242,9 @@ public class FilterRawDataSwitchActivity extends BaseActivity<ActivityFilterRawD
     }
 
 
+    public void onFilterByNano(View view) {
+        start(FilterNanoActivity.class);
+    }
     public void onFilterByOther(View view) {
         start(FilterOtherActivity.class);
     }
