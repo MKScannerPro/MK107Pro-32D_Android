@@ -204,32 +204,32 @@ public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfig107pr
             // 关闭进度条弹框，保存数据，跳转修改设备名称页面
             mBind.tvName.postDelayed(() -> {
                 dismissConnMqttDialog();
-                MokoDevice MokoDevice = DBTools.getInstance(getApplicationContext()).selectDeviceByMac(mDeviceMqttConfig.staMac);
+                MokoDevice mokoDevice = DBTools.getInstance(getApplicationContext()).selectDeviceByMac(mDeviceMqttConfig.staMac);
                 String mqttConfigStr = new Gson().toJson(mDeviceMqttConfig, MQTTConfig.class);
-                if (MokoDevice == null) {
-                    MokoDevice = new MokoDevice();
-                    MokoDevice.name = mDeviceMqttConfig.deviceName;
-                    MokoDevice.mac = mDeviceMqttConfig.staMac;
-                    MokoDevice.mqttInfo = mqttConfigStr;
-                    MokoDevice.topicSubscribe = mDeviceMqttConfig.topicSubscribe;
-                    MokoDevice.topicPublish = mDeviceMqttConfig.topicPublish;
-                    MokoDevice.lwtEnable = mDeviceMqttConfig.lwtEnable ? 1 : 0;
-                    MokoDevice.lwtTopic = mDeviceMqttConfig.lwtTopic;
-                    MokoDevice.deviceType = mSelectedDeviceType;
-                    DBTools.getInstance(getApplicationContext()).insertDevice(MokoDevice);
+                if (mokoDevice == null) {
+                    mokoDevice = new MokoDevice();
+                    mokoDevice.name = mDeviceMqttConfig.deviceName;
+                    mokoDevice.mac = mDeviceMqttConfig.staMac;
+                    mokoDevice.mqttInfo = mqttConfigStr;
+                    mokoDevice.topicSubscribe = mDeviceMqttConfig.topicSubscribe;
+                    mokoDevice.topicPublish = mDeviceMqttConfig.topicPublish;
+                    mokoDevice.lwtEnable = mDeviceMqttConfig.lwtEnable ? 1 : 0;
+                    mokoDevice.lwtTopic = mDeviceMqttConfig.lwtTopic;
+                    mokoDevice.deviceType = mSelectedDeviceType;
+                    DBTools.getInstance(getApplicationContext()).insertDevice(mokoDevice);
                 } else {
-                    MokoDevice.name = mDeviceMqttConfig.deviceName;
-                    MokoDevice.mac = mDeviceMqttConfig.staMac;
-                    MokoDevice.mqttInfo = mqttConfigStr;
-                    MokoDevice.topicSubscribe = mDeviceMqttConfig.topicSubscribe;
-                    MokoDevice.topicPublish = mDeviceMqttConfig.topicPublish;
-                    MokoDevice.lwtEnable = mDeviceMqttConfig.lwtEnable ? 1 : 0;
-                    MokoDevice.lwtTopic = mDeviceMqttConfig.lwtTopic;
-                    MokoDevice.deviceType = mSelectedDeviceType;
-                    DBTools.getInstance(getApplicationContext()).updateDevice(MokoDevice);
+                    mokoDevice.name = mDeviceMqttConfig.deviceName;
+                    mokoDevice.mac = mDeviceMqttConfig.staMac;
+                    mokoDevice.mqttInfo = mqttConfigStr;
+                    mokoDevice.topicSubscribe = mDeviceMqttConfig.topicSubscribe;
+                    mokoDevice.topicPublish = mDeviceMqttConfig.topicPublish;
+                    mokoDevice.lwtEnable = mDeviceMqttConfig.lwtEnable ? 1 : 0;
+                    mokoDevice.lwtTopic = mDeviceMqttConfig.lwtTopic;
+                    mokoDevice.deviceType = mSelectedDeviceType;
+                    DBTools.getInstance(getApplicationContext()).updateDevice(mokoDevice);
                 }
                 Intent modifyIntent = new Intent(this, ModifyNameActivity.class);
-                modifyIntent.putExtra(AppConstants.EXTRA_KEY_DEVICE, MokoDevice);
+                modifyIntent.putExtra(AppConstants.EXTRA_KEY_DEVICE, mokoDevice);
                 startActivity(modifyIntent);
             }, 1000);
         }

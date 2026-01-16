@@ -236,7 +236,7 @@ public class DeviceScannerActivity extends BaseActivity<ActivityScanner107pro32d
             dismissLoadingProgressDialog();
             showLoadingMessageDialog("Verifying..");
             mHandler.postDelayed(() -> {
-                // open password notify and settings password
+                // open password notify and set password
                 List<OrderTask> orderTasks = new ArrayList<>();
                 orderTasks.add(OrderTaskAssembler.setPassword(mPassword));
                 MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
