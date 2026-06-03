@@ -17,7 +17,8 @@ import androidx.annotation.IntRange;
 public class OrderTaskAssembler {
     ///////////////////////////////////////////////////////////////////////////
     // READ
-    ///////////////////////////////////////////////////////////////////////////
+
+    /// ////////////////////////////////////////////////////////////////////////
     public static OrderTask getManufacturer() {
         GetManufacturerNameTask getManufacturerTask = new GetManufacturerNameTask();
         return getManufacturerTask;
@@ -403,7 +404,7 @@ public class OrderTaskAssembler {
     ///////////////////////////////////////////////////////////////////////////
     // WRITE
 
-    ///////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////
 
     public static OrderTask reboot() {
         ParamsTask task = new ParamsTask();
@@ -438,6 +439,12 @@ public class OrderTaskAssembler {
     public static OrderTask setDeviceName(String deviceName) {
         ParamsTask task = new ParamsTask();
         task.setDeviceName(deviceName);
+        return task;
+    }
+
+    public static OrderTask getDeviceMode() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_DEVICE_MODE);
         return task;
     }
 

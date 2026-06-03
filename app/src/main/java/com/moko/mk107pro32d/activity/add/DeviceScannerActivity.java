@@ -31,6 +31,7 @@ import com.moko.support.mk107pro32d.callback.MokoScanDeviceCallback;
 import com.moko.support.mk107pro32d.entity.DeviceInfo;
 import com.moko.support.mk107pro32d.entity.OrderCHAR;
 import com.moko.support.mk107pro32d.entity.OrderServices;
+import com.moko.support.mk107pro32d.entity.ParamsKeyEnum;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -43,6 +44,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+
 import no.nordicsemi.android.support.v18.scanner.ScanRecord;
 import no.nordicsemi.android.support.v18.scanner.ScanResult;
 
@@ -276,17 +278,46 @@ public class DeviceScannerActivity extends BaseActivity<ActivityScanner107pro32d
                             mSavedPassword = mPassword;
                             SPUtiles.setStringValue(this, AppConstants.SP_KEY_PASSWORD, mSavedPassword);
                             XLog.i("Success");
-
-                            // 跳转配置页面
-                            Intent intent = new Intent(this, DeviceConfigActivity.class);
-                            intent.putExtra(AppConstants.EXTRA_KEY_SELECTED_DEVICE_TYPE, mSelectedDeviceType);
-                            intent.putExtra(AppConstants.EXTRA_KEY_FIRST_CONFIG, mIsFirstConfig);
-                            startLauncher.launch(intent);
+                            if (mSelectedDeviceType == 0x60 || mSelectedDeviceType == 0x61) {
+                                // 跳转配置页
+                                Intent intent = new Intent(this, DeviceConfigActivity.class);
+                                intent.putExtra(AppConstants.EXTRA_KEY_SELECTED_DEVICE_TYPE, mSelectedDeviceType);
+                                intent.putExtra(AppConstants.EXTRA_KEY_FIRST_CONFIG, mIsFirstConfig);
+                                startLauncher.launch(intent);
+                            } else {
+                                showLoadingProgressDialog();
+                                MokoSupport.getInstance().sendOrder(OrderTaskAssembler.getDeviceMode());
+                            }
                         }
                         if (0 == result) {
                             isPasswordError = true;
                             ToastUtils.showToast(this, "Password Error");
                             MokoSupport.getInstance().disConnectBle();
+                        }
+                    }
+                }
+            } else if (orderCHAR == OrderCHAR.CHAR_PARAMS) {
+                dismissLoadingProgressDialog();
+                if (value.length >= 4) {
+                    int header = value[0] & 0xFF;// 0xED
+                    int flag = value[1] & 0xFF;// read or write
+                    int cmd = value[2] & 0xFF;
+                    if (header == 0xED) {
+                        ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
+                        if (configKeyEnum == null) {
+                            return;
+                        }
+                        int length = value[3] & 0xFF;
+                        if (flag == 0x00 && length != 0) {
+                            // read
+                            if (configKeyEnum == ParamsKeyEnum.KEY_DEVICE_MODE) {
+                                mIsFirstConfig = value[4] == 0;
+                                // 跳转配置页面
+                                Intent intent = new Intent(this, DeviceConfigActivity.class);
+                                intent.putExtra(AppConstants.EXTRA_KEY_SELECTED_DEVICE_TYPE, mSelectedDeviceType);
+                                intent.putExtra(AppConstants.EXTRA_KEY_FIRST_CONFIG, mIsFirstConfig);
+                                startLauncher.launch(intent);
+                            }
                         }
                     }
                 }
