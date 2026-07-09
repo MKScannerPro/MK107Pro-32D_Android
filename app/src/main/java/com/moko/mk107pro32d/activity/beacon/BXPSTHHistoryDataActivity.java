@@ -128,6 +128,7 @@ public class BXPSTHHistoryDataActivity extends BaseActivity<ActivityThDataBindin
             }.getType();
             MsgNotify<THDataHistory> result = new Gson().fromJson(message, type);
             if (!mMokoDevice.mac.equalsIgnoreCase(result.device_info.mac)) return;
+            mHandler.removeMessages(0);
             for (THData data : result.data.history) {
                 dataList.add(0, data);
                 exportStr.insert(0, "\n" + sdf.format(new Date(data.timestamp * 1000)) + "\t" + data.temperature + "\t" + data.humidity);
